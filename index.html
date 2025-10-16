@@ -969,4 +969,336 @@
     <div class="modal" id="productModal">
         <div class="modal-content">
             <div class="modal-header">
-               
+                <h2 id="modalTitle">Название товара</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modalImage" src="" alt="Товар" class="modal-image">
+                </div>
+                <div class="modal-info">
+                    <div class="modal-brand" id="modalBrand">Бренд</div>
+                    <div class="modal-price-container">
+                        <div class="modal-price" id="modalPrice">0 руб.</div>
+                        <div class="modal-old-price" id="modalOldPrice">0 руб.</div>
+                    </div>
+                    <p class="modal-description" id="modalDescription">Описание товара</p>
+                    <div class="modal-features">
+                        <h3>Особенности</h3>
+                        <ul id="modalFeatures">
+                            <!-- Особенности будут добавлены через JS -->
+                        </ul>
+                    </div>
+                    <a href="#" class="modal-buy-btn" id="modalBuyBtn">
+                        <i class="fab fa-telegram"></i> Купить в Telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные товаров
+        const products = [
+            {
+                id: 1,
+                title: "Rolex Submariner",
+                brand: "Rolex",
+                price: 850000,
+                oldPrice: 920000,
+                description: "Легендарные дайверские часы с автоподзаводом. Водонепроницаемость до 300 метров.",
+                image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                category: "Мужские",
+                features: [
+                    "Автоматический механизм",
+                    "Водонепроницаемость 300м",
+                    "Сапфировое стекло",
+                    "Нержавеющая сталь",
+                    "Хронограф"
+                ]
+            },
+            {
+                id: 2,
+                title: "Omega Seamaster",
+                brand: "Omega",
+                price: 420000,
+                oldPrice: 0,
+                description: "Элегантные часы с хронографом и функцией даты. Классический дизайн и надежность.",
+                image: "https://images.unsplash.com/photo-1547996160-81dfd9c4b1cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                category: "Мужские",
+                features: [
+                    "Автоматический механизм",
+                    "Водонепроницаемость 150м",
+                    "Сапфировое стекло",
+                    "Кожаный ремешок",
+                    "Хронограф"
+                ]
+            },
+            {
+                id: 3,
+                title: "Cartier Tank",
+                brand: "Cartier",
+                price: 380000,
+                oldPrice: 410000,
+                description: "Утонченные женские часы прямоугольной формы. Изысканность и элегантность.",
+                image: "https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                category: "Женские",
+                features: [
+                    "Кварцевый механизм",
+                    "Водонепроницаемость 30м",
+                    "Сапфировое стекло",
+                    "Позолоченный корпус",
+                    "Ремешок из кожи аллигатора"
+                ]
+            },
+            {
+                id: 4,
+                title: "Apple Watch Series 8",
+                brand: "Apple",
+                price: 45990,
+                oldPrice: 0,
+                description: "Умные часы с расширенными функциями здоровья и фитнеса. Всегда на связи.",
+                image: "https://images.unsplash.com/photo-1579586337278-3f43610214d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                category: "Умные часы",
+                features: [
+                    "Сенсорный дисплей Retina",
+                    "Мониторинг ЭКГ",
+                    "До 18 часов работы",
+                    "Водонепроницаемость 50м",
+                    "GPS и сотовые модели"
+                ]
+            },
+            {
+                id: 5,
+                title: "Tag Heuer Carrera",
+                brand: "Tag Heuer",
+                price: 290000,
+                oldPrice: 320000,
+                description: "Спортивные часы с хронографом. Сочетание стиля и функциональности.",
+                image: "https://images.unsplash.com/photo-1587836374828-4dbafa74d0c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                category: "Мужские",
+                features: [
+                    "Автоматический механизм",
+                    "Водонепроницаемость 100м",
+                    "Сапфировое стекло",
+                    "Нержавеющая сталь",
+                    "Хронограф с тахиметром"
+                ]
+            },
+            {
+                id: 6,
+                title: "Breitling Navitimer",
+                brand: "Breitling",
+                price: 680000,
+                oldPrice: 0,
+                description: "Культовые авиационные часы с логарифмической линейкой. Для настоящих ценителей.",
+                image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                category: "Мужские",
+                features: [
+                    "Автоматический механизм",
+                    "Водонепроницаемость 30м",
+                    "Сапфировое стекло",
+                    "Позолоченные детали",
+                    "Логарифмическая линейка"
+                ]
+            }
+        ];
+
+        // Элементы DOM
+        const productsGrid = document.getElementById('productsGrid');
+        const searchInput = document.querySelector('.search-input');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productModal = document.getElementById('productModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBrand = document.getElementById('modalBrand');
+        const modalImage = document.getElementById('modalImage');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalOldPrice = document.getElementById('modalOldPrice');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalFeatures = document.getElementById('modalFeatures');
+        const modalBuyBtn = document.getElementById('modalBuyBtn');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Переменные состояния
+        let currentCategory = 'Все часы';
+        let searchQuery = '';
+
+        // Инициализация
+        function init() {
+            renderProducts(products);
+            setupEventListeners();
+        }
+
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            // Поиск
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                filterProducts();
+            });
+
+            // Фильтры
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.textContent;
+                    filterProducts();
+                });
+            });
+
+            // Закрытие модального окна
+            closeModal.addEventListener('click', () => {
+                productModal.style.display = 'none';
+            });
+
+            // Закрытие модального окна при клике вне его
+            window.addEventListener('click', (e) => {
+                if (e.target === productModal) {
+                    productModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Фильтрация товаров
+        function filterProducts() {
+            let filteredProducts = products;
+
+            // Фильтрация по категории
+            if (currentCategory !== 'Все часы') {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.category === currentCategory
+                );
+            }
+
+            // Фильтрация по поисковому запросу
+            if (searchQuery) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.title.toLowerCase().includes(searchQuery) ||
+                    product.brand.toLowerCase().includes(searchQuery) ||
+                    product.description.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            renderProducts(filteredProducts);
+        }
+
+        // Отрисовка товаров
+        function renderProducts(productsToRender) {
+            productsGrid.innerHTML = '';
+
+            if (productsToRender.length === 0) {
+                productsGrid.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <p>Товары не найдены</p>
+                        <p>Попробуйте изменить параметры поиска</p>
+                    </div>
+                `;
+                return;
+            }
+
+            productsToRender.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.title}" class="product-image">
+                        ${product.oldPrice ? `<div class="product-badge">-${Math.round((1 - product.price / product.oldPrice) * 100)}%</div>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">${product.brand}</div>
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">
+                            ${product.price.toLocaleString()} ₽
+                            ${product.oldPrice ? `<span class="product-old-price">${product.oldPrice.toLocaleString()} ₽</span>` : ''}
+                        </div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-actions">
+                            <button class="buy-btn" data-id="${product.id}">
+                                <i class="fas fa-shopping-cart"></i> Купить
+                            </button>
+                            <button class="wishlist-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+
+                // Обработчик клика по карточке товара
+                productCard.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('buy-btn') && 
+                        !e.target.classList.contains('wishlist-btn') &&
+                        !e.target.closest('.buy-btn') &&
+                        !e.target.closest('.wishlist-btn')) {
+                        openProductModal(product);
+                    }
+                });
+
+                // Обработчик клика по кнопке "Купить"
+                const buyBtn = productCard.querySelector('.buy-btn');
+                buyBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openProductModal(product);
+                });
+
+                // Обработчик клика по кнопке "В избранное"
+                const wishlistBtn = productCard.querySelector('.wishlist-btn');
+                wishlistBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const icon = wishlistBtn.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        wishlistBtn.style.color = 'var(--accent)';
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        wishlistBtn.style.color = 'var(--text)';
+                    }
+                });
+            });
+        }
+
+        // Открытие модального окна товара
+        function openProductModal(product) {
+            modalTitle.textContent = product.title;
+            modalBrand.textContent = product.brand;
+            modalImage.src = product.image;
+            modalImage.alt = product.title;
+            modalPrice.textContent = `${product.price.toLocaleString()} ₽`;
+            
+            if (product.oldPrice) {
+                modalOldPrice.textContent = `${product.oldPrice.toLocaleString()} ₽`;
+                modalOldPrice.style.display = 'block';
+            } else {
+                modalOldPrice.style.display = 'none';
+            }
+            
+            modalDescription.textContent = product.description;
+            
+            // Очистка и заполнение особенностей
+            modalFeatures.innerHTML = '';
+            product.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                modalFeatures.appendChild(li);
+            });
+            
+            // Настройка кнопки для перехода в Telegram
+            const telegramUsername = "your_telegram_username"; // Замените на ваш Telegram username
+            const message = `Здравствуйте! Я хочу купить часы: ${product.brand} ${product.title} за ${product.price.toLocaleString()} ₽`;
+            const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
+            modalBuyBtn.href = telegramUrl;
+            
+            productModal.style.display = 'block';
+        }
+
+        // Запуск приложения
+        init();
+    </script>
+</body>
+</html>
