@@ -56,24 +56,25 @@
         }
 
         .logo {
-            width: 50px;
-            height: 50px;
-            background-color: var(--accent);
-            border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: var(--primary);
         }
 
-        .logo-text {
-            font-size: 1.5rem;
+        .logo-main {
+            font-size: 1.8rem;
             font-weight: 700;
+            color: var(--accent);
+            line-height: 1.2;
+            text-align: center;
         }
 
-        .logo-text span {
-            color: var(--accent);
+        .logo-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 0.2rem;
         }
 
         .search-container {
@@ -817,6 +818,14 @@
             .modal-body {
                 padding: 1rem;
             }
+            
+            .logo-main {
+                font-size: 1.4rem;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -825,9 +834,10 @@
     <header>
         <div class="header-content">
             <div class="logo-container">
-                <!-- Замените этот div на ваше лого -->
-                <div class="logo">CE</div>
-                <div class="logo-text">Chrono<span>Elite</span></div>
+                <div class="logo">
+                    <div class="logo-main">Надежно Качественно Безопасно</div>
+                    <div class="logo-subtitle">Магазин элитных часов</div>
+                </div>
             </div>
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Поиск часов...">
@@ -921,7 +931,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-column">
-                <h3>ChronoElite</h3>
+                <h3>Надежно Качественно Безопасно</h3>
                 <p>Магазин элитных часов с мировым именем. Мы предлагаем только оригинальную продукцию с гарантией.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-telegram"></i></a>
@@ -955,13 +965,13 @@
                 <ul class="footer-links">
                     <li><i class="fas fa-map-marker-alt"></i> Москва, ул. Тверская, 15</li>
                     <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
-                    <li><i class="fas fa-envelope"></i> info@chronoelite.ru</li>
+                    <li><i class="fas fa-envelope"></i> info@watchstore.ru</li>
                     <li><i class="fas fa-clock"></i> Пн-Пт: 10:00-20:00</li>
                 </ul>
             </div>
         </div>
         <div class="copyright">
-            &copy; 2023 ChronoElite. Все права защищены.
+            &copy; 2023 Надежно Качественно Безопасно. Все права защищены.
         </div>
     </footer>
 
@@ -1110,195 +1120,4 @@
         const filterBtns = document.querySelectorAll('.filter-btn');
         const productModal = document.getElementById('productModal');
         const modalTitle = document.getElementById('modalTitle');
-        const modalBrand = document.getElementById('modalBrand');
-        const modalImage = document.getElementById('modalImage');
-        const modalPrice = document.getElementById('modalPrice');
-        const modalOldPrice = document.getElementById('modalOldPrice');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalFeatures = document.getElementById('modalFeatures');
-        const modalBuyBtn = document.getElementById('modalBuyBtn');
-        const closeModal = document.querySelector('.close-modal');
-
-        // Переменные состояния
-        let currentCategory = 'Все часы';
-        let searchQuery = '';
-
-        // Инициализация
-        function init() {
-            renderProducts(products);
-            setupEventListeners();
-        }
-
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            // Поиск
-            searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value.toLowerCase();
-                filterProducts();
-            });
-
-            // Фильтры
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentCategory = btn.textContent;
-                    filterProducts();
-                });
-            });
-
-            // Закрытие модального окна
-            closeModal.addEventListener('click', () => {
-                productModal.style.display = 'none';
-            });
-
-            // Закрытие модального окна при клике вне его
-            window.addEventListener('click', (e) => {
-                if (e.target === productModal) {
-                    productModal.style.display = 'none';
-                }
-            });
-        }
-
-        // Фильтрация товаров
-        function filterProducts() {
-            let filteredProducts = products;
-
-            // Фильтрация по категории
-            if (currentCategory !== 'Все часы') {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.category === currentCategory
-                );
-            }
-
-            // Фильтрация по поисковому запросу
-            if (searchQuery) {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.title.toLowerCase().includes(searchQuery) ||
-                    product.brand.toLowerCase().includes(searchQuery) ||
-                    product.description.toLowerCase().includes(searchQuery)
-                );
-            }
-
-            renderProducts(filteredProducts);
-        }
-
-        // Отрисовка товаров
-        function renderProducts(productsToRender) {
-            productsGrid.innerHTML = '';
-
-            if (productsToRender.length === 0) {
-                productsGrid.innerHTML = `
-                    <div class="no-results">
-                        <div class="no-results-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <p>Товары не найдены</p>
-                        <p>Попробуйте изменить параметры поиска</p>
-                    </div>
-                `;
-                return;
-            }
-
-            productsToRender.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <div class="product-image-container">
-                        <img src="${product.image}" alt="${product.title}" class="product-image">
-                        ${product.oldPrice ? `<div class="product-badge">-${Math.round((1 - product.price / product.oldPrice) * 100)}%</div>` : ''}
-                    </div>
-                    <div class="product-info">
-                        <div class="product-brand">${product.brand}</div>
-                        <div class="product-title">${product.title}</div>
-                        <div class="product-price">
-                            ${product.price.toLocaleString()} ₽
-                            ${product.oldPrice ? `<span class="product-old-price">${product.oldPrice.toLocaleString()} ₽</span>` : ''}
-                        </div>
-                        <div class="product-description">${product.description}</div>
-                        <div class="product-actions">
-                            <button class="buy-btn" data-id="${product.id}">
-                                <i class="fas fa-shopping-cart"></i> Купить
-                            </button>
-                            <button class="wishlist-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                productsGrid.appendChild(productCard);
-
-                // Обработчик клика по карточке товара
-                productCard.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('buy-btn') && 
-                        !e.target.classList.contains('wishlist-btn') &&
-                        !e.target.closest('.buy-btn') &&
-                        !e.target.closest('.wishlist-btn')) {
-                        openProductModal(product);
-                    }
-                });
-
-                // Обработчик клика по кнопке "Купить"
-                const buyBtn = productCard.querySelector('.buy-btn');
-                buyBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openProductModal(product);
-                });
-
-                // Обработчик клика по кнопке "В избранное"
-                const wishlistBtn = productCard.querySelector('.wishlist-btn');
-                wishlistBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const icon = wishlistBtn.querySelector('i');
-                    if (icon.classList.contains('far')) {
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                        wishlistBtn.style.color = 'var(--accent)';
-                    } else {
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                        wishlistBtn.style.color = 'var(--text)';
-                    }
-                });
-            });
-        }
-
-        // Открытие модального окна товара
-        function openProductModal(product) {
-            modalTitle.textContent = product.title;
-            modalBrand.textContent = product.brand;
-            modalImage.src = product.image;
-            modalImage.alt = product.title;
-            modalPrice.textContent = `${product.price.toLocaleString()} ₽`;
-            
-            if (product.oldPrice) {
-                modalOldPrice.textContent = `${product.oldPrice.toLocaleString()} ₽`;
-                modalOldPrice.style.display = 'block';
-            } else {
-                modalOldPrice.style.display = 'none';
-            }
-            
-            modalDescription.textContent = product.description;
-            
-            // Очистка и заполнение особенностей
-            modalFeatures.innerHTML = '';
-            product.features.forEach(feature => {
-                const li = document.createElement('li');
-                li.textContent = feature;
-                modalFeatures.appendChild(li);
-            });
-            
-            // Настройка кнопки для перехода в Telegram
-            const telegramUsername = "your_telegram_username"; // Замените на ваш Telegram username
-            const message = `Здравствуйте! Я хочу купить часы: ${product.brand} ${product.title} за ${product.price.toLocaleString()} ₽`;
-            const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
-            modalBuyBtn.href = telegramUrl;
-            
-            productModal.style.display = 'block';
-        }
-
-        // Запуск приложения
-        init();
-    </script>
-</body>
-</html>
+        const modalBrand =
