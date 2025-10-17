@@ -1,4 +1,4 @@
-Отлично! Уберу корзину, личный кабинет и избранное. Вот обновленный код:
+Добавлю функционал для отображения текста при нажатии на пункты "Помощь", "Гарантия" и другие. Вот обновленный код:
 
 ```html
 <!DOCTYPE html>
@@ -603,6 +603,83 @@
             box-shadow: 0 8px 15px rgba(201, 169, 110, 0.4);
         }
 
+        /* Модальное окно помощи */
+        .help-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .help-modal-content {
+            background-color: var(--card-bg);
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: modalFade 0.4s;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+
+        .help-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            background-color: var(--secondary);
+        }
+
+        .help-modal-body {
+            padding: 2rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .help-section {
+            margin-bottom: 2rem;
+        }
+
+        .help-section h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .help-section p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .help-section ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .help-section li {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .help-section li::before {
+            content: "•";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
         /* Сообщение о пустом результате */
         .no-results {
             text-align: center;
@@ -656,6 +733,7 @@
             color: var(--text-light);
             text-decoration: none;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         .footer-links a:hover {
@@ -892,11 +970,11 @@
             <div class="footer-column">
                 <h3>Помощь</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Доставка и оплата</a></li>
-                    <li><a href="#">Гарантия</a></li>
-                    <li><a href="#">Возврат и обмен</a></li>
-                    <li><a href="#">Частые вопросы</a></li>
-                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#" class="help-link" data-section="delivery">Доставка и оплата</a></li>
+                    <li><a href="#" class="help-link" data-section="warranty">Гарантия</a></li>
+                    <li><a href="#" class="help-link" data-section="return">Возврат и обмен</a></li>
+                    <li><a href="#" class="help-link" data-section="faq">Частые вопросы</a></li>
+                    <li><a href="#" class="help-link" data-section="contacts">Контакты</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -940,6 +1018,19 @@
                         <i class="fab fa-telegram"></i> Купить в Telegram
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно помощи -->
+    <div class="help-modal" id="helpModal">
+        <div class="help-modal-content">
+            <div class="help-modal-header">
+                <h2 id="helpModalTitle">Помощь</h2>
+                <span class="close-help-modal">&times;</span>
+            </div>
+            <div class="help-modal-body" id="helpModalBody">
+                <!-- Контент будет добавляться через JavaScript -->
             </div>
         </div>
     </div>
@@ -1039,99 +1130,4 @@
                 price: 680000,
                 oldPrice: 0,
                 description: "Культовые авиационные часы с логарифмической линейкой. Для настоящих ценителей.",
-                image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Мужские",
-                features: [
-                    "Автоматический механизм",
-                    "Водонепроницаемость 30м",
-                    "Сапфировое стекло",
-                    "Позолоченные детали",
-                    "Логарифмическая линейка"
-                ]
-            }
-        ];
-
-        // Элементы DOM
-        const productsGrid = document.getElementById('productsGrid');
-        const searchInput = document.querySelector('.search-input');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const productModal = document.getElementById('productModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBrand = document.getElementById('modalBrand');
-        const modalImage = document.getElementById('modalImage');
-        const modalPrice = document.getElementById('modalPrice');
-        const modalOldPrice = document.getElementById('modalOldPrice');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalFeatures = document.getElementById('modalFeatures');
-        const modalBuyBtn = document.getElementById('modalBuyBtn');
-        const closeModal = document.querySelector('.close-modal');
-
-        // Переменные состояния
-        let currentCategory = 'Все часы';
-        let searchQuery = '';
-
-        // Инициализация
-        function init() {
-            renderProducts(products);
-            setupEventListeners();
-        }
-
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            // Поиск
-            searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value.toLowerCase();
-                filterProducts();
-            });
-
-            // Фильтры
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentCategory = btn.textContent;
-                    filterProducts();
-                });
-            });
-
-            // Закрытие модального окна
-            closeModal.addEventListener('click', () => {
-                productModal.style.display = 'none';
-            });
-
-            // Закрытие модального окна при клике вне его
-            window.addEventListener('click', (e) => {
-                if (e.target === productModal) {
-                    productModal.style.display = 'none';
-                }
-            });
-        }
-
-        // Фильтрация товаров
-        function filterProducts() {
-            let filteredProducts = products;
-
-            // Фильтрация по категории
-            if (currentCategory !== 'Все часы') {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.category === currentCategory
-                );
-            }
-
-            // Фильтрация по поисковому запросу
-            if (searchQuery) {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.title.toLowerCase().includes(searchQuery) ||
-                    product.brand.toLowerCase().includes(searchQuery) ||
-                    product.description.toLowerCase().includes(searchQuery)
-                );
-            }
-
-            renderProducts(filteredProducts);
-        }
-
-        // Отрисовка товаров
-        function renderProducts(productsToRender) {
-            productsGrid.innerHTML = '';
-
-            if (productsToRender.length === 0) {
+                image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?ixlib=rb-1.2.1&auto=format&fit=crop&w
