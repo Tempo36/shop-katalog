@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tempo Shop - Премиум часы</title>
+    <title>Tempo Shop - Каталог часов</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -214,10 +214,6 @@
             font-size: 1.1rem;
         }
 
-        .banner-image {
-            display: none; /* Скрываем изображение так как убрали кнопку */
-        }
-
         /* Фильтры и категории */
         .filters {
             display: flex;
@@ -247,67 +243,6 @@
             background-color: var(--accent);
             color: var(--primary);
             border-color: var(--accent);
-        }
-
-        /* Бренды */
-        .brands-section {
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        .section-title i {
-            color: var(--accent);
-        }
-
-        .brands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .brand-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .brand-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            border-color: var(--accent);
-        }
-
-        .brand-logo {
-            width: 60px;
-            height: 60px;
-            background-color: var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .brand-name {
-            font-weight: 600;
-            text-align: center;
         }
 
         /* Сетка товаров */
@@ -871,10 +806,6 @@
                 font-size: 0.9rem;
             }
             
-            .brands-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-            
             .modal-header {
                 padding: 1rem 1.5rem;
             }
@@ -900,7 +831,7 @@
             <div class="logo-container">
                 <div class="logo">
                     <div class="logo-main">TempoShop</div>
-                    <div class="logo-subtitle">Магазин элитных часов</div>
+                    <div class="logo-subtitle">Каталог часов</div>
                 </div>
             </div>
             <div class="search-container">
@@ -930,9 +861,8 @@
         <!-- Баннер -->
         <section class="banner">
             <div class="banner-content">
-                <h1>Элитные часы для избранных</h1>
-                <p>Откройте для себя коллекцию премиальных часов от ведущих мировых брендов. Изысканность в каждой детали.</p>
-                <!-- Кнопка "Смотреть коллекцию" убрана -->
+                <h1>Каталог элитных часов</h1>
+                <p>Откройте для себя полную коллекцию премиальных часов от ведущих мировых брендов. Изысканность в каждой детали.</p>
             </div>
         </section>
 
@@ -946,42 +876,11 @@
             </div>
         </div>
 
-        <!-- Бренды -->
-        <section class="brands-section">
-            <h2 class="section-title"><i class="fas fa-crown"></i> Наши бренды</h2>
-            <div class="brands-grid">
-                <div class="brand-card" data-brand="Casio">
-                    <div class="brand-logo">C</div>
-                    <div class="brand-name">Casio</div>
-                </div>
-                <div class="brand-card" data-brand="Omega">
-                    <div class="brand-logo">Ск</div>
-                    <div class="brand-name">скоро</div>
-                </div>
-                <div class="brand-card" data-brand="Tag Heuer">
-                    <div class="brand-logo">ск</div>
-                    <div class="brand-name">скоро</div>
-                </div>
-                <div class="brand-card" data-brand="Cartier">
-                    <div class="brand-logo">ск</div>
-                    <div class="brand-name">скоро</div>
-                </div>
-                <div class="brand-card" data-brand="Breitling">
-                    <div class="brand-logo">ск</div>
-                    <div class="brand-name">скоро</div>
-                </div>
-                <div class="brand-card" data-brand="Patek Philippe">
-                    <div class="brand-logo">P</div>
-                    <div class="brand-name">Patek Philippe</div>
-                </div>
-            </div>
-        </section>
-
         <!-- Товары -->
         <section class="products-section">
-            <h2 class="section-title"><i class="fas fa-clock"></i> Популярные модели</h2>
+            <h2 class="section-title"><i class="fas fa-clock"></i> Все модели часов</h2>
             <div class="products-grid" id="productsGrid">
-               
+                <!-- Товары будут добавлены через JavaScript -->
             </div>
         </section>
     </div>
@@ -1080,12 +979,12 @@
         const products = [
             {
                 id: 1,
-                title: "Casio",
-                brand: "Casio",
-                price: -,
-                oldPrice: -,
+                title: "Rolex Submariner",
+                brand: "Rolex",
+                price: 450000,
+                oldPrice: 520000,
                 description: "Легендарные дайверские часы с автоподзаводом. Водонепроницаемость до 300 метров.",
-                image: "фото",
+                image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                 category: "Мужские",
                 features: [
                     "Автоматический механизм",
@@ -1097,19 +996,18 @@
             },
             {
                 id: 2,
-                title: "Patek Philippe",
-                brand: "Patek Philipp",
-                price: 4.999,
-                oldPrice: 7.999,
+                title: "Omega Seamaster",
+                brand: "Omega",
+                price: 299000,
+                oldPrice: 349000,
                 description: "Элегантные часы с хронографом и функцией даты. Классический дизайн и надежность.",
-                image: ""потек филип часы.webp"",
+                image: "https://images.unsplash.com/photo-1547996160-81dfd58739c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                 category: "Мужские",
                 features: [
-                    "Премиальная реплика",
                     "Автоматический механизм",
-                    "Водонепроницаемость 50М",
-                    "Минеральное стекло",
-                    "Металлический ремешок",
+                    "Водонепроницаемость 150м",
+                    "Сапфировое стекло",
+                    "Нержавеющая сталь",
                     "Хронограф"
                 ]
             },
@@ -1179,6 +1077,40 @@
                     "Сапфировое стекло",
                     "Позолоченные детали",
                     "Логарифмическая линейка"
+                ]
+            },
+            {
+                id: 7,
+                title: "Patek Philippe Nautilus",
+                brand: "Patek Philippe",
+                price: 1200000,
+                oldPrice: 0,
+                description: "Эксклюзивные часы для истинных ценителей часового искусства.",
+                image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                category: "Мужские",
+                features: [
+                    "Автоматический механизм",
+                    "Водонепроницаемость 120м",
+                    "Сапфировое стекло",
+                    "Платиновый корпус",
+                    "Индикатор запаса хода"
+                ]
+            },
+            {
+                id: 8,
+                title: "Cartier Ballon Bleu",
+                brand: "Cartier",
+                price: 420000,
+                oldPrice: 480000,
+                description: "Элегантные женские часы с фирменным синим сапфиром.",
+                image: "https://images.unsplash.com/photo-1526045431048-f857369baa09?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                category: "Женские",
+                features: [
+                    "Кварцевый механизм",
+                    "Водонепроницаемость 30м",
+                    "Сапфировое стекло",
+                    "Стальной корпус",
+                    "Ремешок из кожи крокодила"
                 ]
             }
         ];
@@ -1306,7 +1238,6 @@
         const searchInput = document.querySelector('.search-input');
         const filterBtns = document.querySelectorAll('.filter-btn');
         const brandFilters = document.querySelectorAll('.brand-filter');
-        const brandCards = document.querySelectorAll('.brand-card');
         const categoryFilters = document.querySelectorAll('.category-filter');
         const productModal = document.getElementById('productModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -1360,14 +1291,6 @@
                 filter.addEventListener('click', (e) => {
                     e.preventDefault();
                     currentBrand = filter.getAttribute('data-brand');
-                    filterProducts();
-                });
-            });
-
-            // Фильтры по брендам в карточках
-            brandCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    currentBrand = card.getAttribute('data-brand');
                     filterProducts();
                 });
             });
@@ -1551,4 +1474,4 @@
         init();
     </script>
 </body>
-</html> 
+</html>
