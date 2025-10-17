@@ -1075,479 +1075,515 @@
         </div>
     </div>
 
-    <script>
-        // Данные товаров
-        const products = [
-            {
-                id: 1,
-                title: "Rolex Submariner",
-                brand: "Rolex",
-                price: 850000,
-                oldPrice: 920000,
-                description: "Легендарные дайверские часы с автоподзаводом. Водонепроницаемость до 300 метров.",
-                image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Мужские",
-                features: [
-                    "Автоматический механизм",
-                    "Водонепроницаемость 300м",
-                    "Сапфировое стекло",
-                    "Нержавеющая сталь",
-                    "Хронограф"
-                ]
-            },
-            {
-                id: 2,
-                title: "Omega Seamaster",
-                brand: "Omega",
-                price: 420000,
-                oldPrice: 0,
-                description: "Элегантные часы с хронографом и функцией даты. Классический дизайн и надежность.",
-                image: "https://images.unsplash.com/photo-1547996160-81dfd9c4b1cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Мужские",
-                features: [
-                    "Автоматический механизм",
-                    "Водонепроницаемость 150м",
-                    "Сапфировое стекло",
-                    "Кожаный ремешок",
-                    "Хронограф"
-                ]
-            },
-            {
-                id: 3,
-                title: "Cartier Tank",
-                brand: "Cartier",
-                price: 380000,
-                oldPrice: 410000,
-                description: "Утонченные женские часы прямоугольной формы. Изысканность и элегантность.",
-                image: "https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Женские",
-                features: [
-                    "Кварцевый механизм",
-                    "Водонепроницаемость 30м",
-                    "Сапфировое стекло",
-                    "Позолоченный корпус",
-                    "Ремешок из кожи аллигатора"
-                ]
-            },
-            {
-                id: 4,
-                title: "Apple Watch Series 8",
-                brand: "Apple",
-                price: 45990,
-                oldPrice: 0,
-                description: "Умные часы с расширенными функциями здоровья и фитнеса. Всегда на связи.",
-                image: "https://images.unsplash.com/photo-1579586337278-3f43610214d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Умные часы",
-                features: [
-                    "Сенсорный дисплей Retina",
-                    "Мониторинг ЭКГ",
-                    "До 18 часов работы",
-                    "Водонепроницаемость 50м",
-                    "GPS и сотовые модели"
-                ]
-            },
-            {
-                id: 5,
-                title: "Tag Heuer Carrera",
-                brand: "Tag Heuer",
-                price: 290000,
-                oldPrice: 320000,
-                description: "Спортивные часы с хронографом. Сочетание стиля и функциональности.",
-                image: "https://images.unsplash.com/photo-1587836374828-4dbafa74d0c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Мужские",
-                features: [
-                    "Автоматический механизм",
-                    "Водонепроницаемость 100м",
-                    "Сапфировое стекло",
-                    "Нержавеющая сталь",
-                    "Хронограф с тахиметром"
-                ]
-            },
-            {
-                id: 6,
-                title: "Breitling Navitimer",
-                brand: "Breitling",
-                price: 680000,
-                oldPrice: 0,
-                description: "Культовые авиационные часы с логарифмической линейкой. Для настоящих ценителей.",
-                image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Мужские",
-                features: [
-                    "Автоматический механизм",
-                    "Водонепроницаемость 30м",
-                    "Сапфировое стекло",
-                    "Позолоченные детали",
-                    "Логарифмическая линейка"
-                ]
-            }
-        ];
-
-        // Данные для разделов помощи
-        const helpSections = {
-            delivery: {
-                title: "Доставка и оплата",
-                content: `
-                    <div class="help-section">
-                        <h3>Способы доставки</h3>
-                        <p>Мы предлагаем несколько удобных способов доставки:</p>
-                        <ul>
-                            <li><strong>Курьерская доставка</strong> - по Москве в течение 1-2 дней</li>
-                            <li><strong>Почта России</strong> - доставка по всей России за 5-14 дней</li>
-                            <li><strong>Самовывоз</strong> - от нас в Москве</li>
-                            <li><strong>Доставка Яндекс GO</strong> - в течение 24 часов по Москве</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h3>Способы оплаты</h3>
-                        <p>Вы можете оплатить заказ любым удобным способом:</p>
-                        <ul>
-                            <li><strong>Наличными</strong> - при замовывозе или курьерской доставке</li>
-                            <li><strong>По СПБ</strong> - Банк будет указан при оформлении заказа.</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h3>Стоимость доставки</h3>
-                        <p>Стоимость доставки зависит от выбранного способа и региона:</p>
-                        <ul>
-                            <li>Москва - от 300 руб.</li>
-                            <li>Московская область - от 500 руб.</li>
-                            <li>Другие регионы - рассчитывается индивидуально</li>
-                        </ul>
-                    </div>
-                `
-            },
-            warranty: {
-                title: "Гарантия",
-                content: `
-                    <div class="help-section">
-                        <h3>Гарантийные обязательства</h3>
-                        <p>Мы предоставляем гарантию на все наши товары:</p>
-                        <ul>
-                            <li><strong>Оригинальные часы</strong> - гарантия 2 года от производителя</li>
-                            <li><strong>Премиум реплики</strong> - гарантия 1 год от магазина</li>
-                            <li><strong>Умные часы</strong> - гарантия 1 год</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h3>Условия гарантии</h3>
-                        <p>Гарантия распространяется на:</p>
-                        <ul>
-                            <li>Заводские дефекты механизма</li>
-                            <li>Проблемы с водонепроницаемостью</li>
-                            <li>Дефекты материалов и отделки</li>
-                            <li>Неисправности электронных компонентов</li>
-                        </ul>
-                        <p>Гарантия не распространяется на:</p>
-                        <ul>
-                            <li>Механические повреждения от ударов</li>
-                            <li>Повреждения от неправильной эксплуатации</li>
-                            <li>Естественный износ ремешков и стекол</li>
-                            <li>Повреждения от контакта с химическими веществами</li>
-                        </ul>
-                    </div>
-                `
-            },
-            return: {
-                title: "Возврат и обмен",
-                content: `
-                    <div class="help-section">
-                        <h3>Условия возврата</h3>
-                        <p>Вы можете вернуть или обменять товар в течение 7 дней с момента покупки:</p>
-                        <ul>
-                            <li>Товар должен быть в оригинальной упаковке</li>
-                            <li>Все бирки и ярлыки должны быть сохранены</li>
-                            <li>Товар не должен иметь следов эксплуатации</li>
-                            <li>Должны быть сохранены все документы</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h3>Процесс возврата</h3>
-                        <p>Для возврата или обмена товара:</p>
-                        <ul>
-                            <li>Свяжитесь с нами по телефону или email или в телеграмм</li>
-                            <li>Объясните почему вощврощаите товар и предъявите фото или видео что товар без повреждений</li>
-                            <li>Отправьте товар нам курьерской службой</li>
-                            <li>После проверки мы вернем деньги в течение 3-5 дней</li>
-                        </ul>
-                    </div>
-                `
-            },
-            faq: {
-                title: "Частые вопросы",
-                content: `
-                    <div class="help-section">
-                        <h3>Общие вопросы</h3>
-                        <p><strong>Как ухаживать за часами?</strong><br>
-                        Избегайте контакта с химическими веществами, регулярно протирайте мягкой тканью.</p>
-                    </div>
-                `
-            },
-            contacts: {
-                title: "Контакты",
-                content: `
-                    <div class="help-section">
-                        <h3>Наши контакты</h3>
-                        <p><strong>Email:</strong> Tempo63@yandex.ru</p>
-                        <p><strong>Телефон:</strong> +7 (901) 523 14 75</p>
-                        <p><strong>Режим работы:</strong> Пн-Пн: 10:00-23:00</p>
-                    </div>
-                    <div class="help-section">
-                        <h3>Свяжитесь с нами</h3>
-                        <p>Мы всегда рады помочь вам с выбором часов или ответить на любые вопросы. Наши консультанты работают ежедневно и готовы предоставить вам полную информацию о товарах и услугах.</p>
-                        <p>Для быстрого ответа рекомендуем обращаться через Telegram или по электронной почте.</p>
-                    </div>
-                `
-            }
-        };
-
-        // Элементы DOM
-        const productsGrid = document.getElementById('productsGrid');
-        const searchInput = document.querySelector('.search-input');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const brandFilters = document.querySelectorAll('.brand-filter');
-        const brandCards = document.querySelectorAll('.brand-card');
-        const categoryFilters = document.querySelectorAll('.category-filter');
-        const productModal = document.getElementById('productModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBrand = document.getElementById('modalBrand');
-        const modalImage = document.getElementById('modalImage');
-        const modalPrice = document.getElementById('modalPrice');
-        const modalOldPrice = document.getElementById('modalOldPrice');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalFeatures = document.getElementById('modalFeatures');
-        const modalBuyBtn = document.getElementById('modalBuyBtn');
-        const closeModal = document.querySelector('.close-modal');
-
-        // Элементы модального окна помощи
-        const helpModal = document.getElementById('helpModal');
-        const helpModalTitle = document.getElementById('helpModalTitle');
-        const helpModalBody = document.getElementById('helpModalBody');
-        const closeHelpModal = document.querySelector('.close-help-modal');
-        const helpLinks = document.querySelectorAll('.help-link');
-
-        // Переменные состояния
-        let currentCategory = 'all';
-        let currentBrand = 'all';
-        let searchQuery = '';
-
-        // Инициализация
-        function init() {
-            renderProducts(products);
-            setupEventListeners();
+     <script>
+    // Данные товаров (без изменений)
+    const products = [
+        {
+            id: 1,
+            title: "Rolex Submariner",
+            brand: "Rolex",
+            price: 850000,
+            oldPrice: 920000,
+            description: "Легендарные дайверские часы с автоподзаводом. Водонепроницаемость до 300 метров.",
+            image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            category: "Мужские",
+            features: [
+                "Автоматический механизм",
+                "Водонепроницаемость 300м",
+                "Сапфировое стекло",
+                "Нержавеющая сталь",
+                "Хронограф"
+            ]
+        },
+        {
+            id: 2,
+            title: "Omega Seamaster",
+            brand: "Omega",
+            price: 420000,
+            oldPrice: 0,
+            description: "Элегантные часы с хронографом и функцией даты. Классический дизайн и надежность.",
+            image: "https://images.unsplash.com/photo-1547996160-81dfd9c4b1cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            category: "Мужские",
+            features: [
+                "Автоматический механизм",
+                "Водонепроницаемость 150м",
+                "Сапфировое стекло",
+                "Кожаный ремешок",
+                "Хронограф"
+            ]
+        },
+        {
+            id: 3,
+            title: "Cartier Tank",
+            brand: "Cartier",
+            price: 380000,
+            oldPrice: 410000,
+            description: "Утонченные женские часы прямоугольной формы. Изысканность и элегантность.",
+            image: "https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            category: "Женские",
+            features: [
+                "Кварцевый механизм",
+                "Водонепроницаемость 30м",
+                "Сапфировое стекло",
+                "Позолоченный корпус",
+                "Ремешок из кожи аллигатора"
+            ]
+        },
+        {
+            id: 4,
+            title: "Apple Watch Series 8",
+            brand: "Apple",
+            price: 45990,
+            oldPrice: 0,
+            description: "Умные часы с расширенными функциями здоровья и фитнеса. Всегда на связи.",
+            image: "https://images.unsplash.com/photo-1579586337278-3f43610214d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            category: "Умные часы",
+            features: [
+                "Сенсорный дисплей Retina",
+                "Мониторинг ЭКГ",
+                "До 18 часов работы",
+                "Водонепроницаемость 50м",
+                "GPS и сотовые модели"
+            ]
+        },
+        {
+            id: 5,
+            title: "Tag Heuer Carrera",
+            brand: "Tag Heuer",
+            price: 290000,
+            oldPrice: 320000,
+            description: "Спортивные часы с хронографом. Сочетание стиля и функциональности.",
+            image: "https://images.unsplash.com/photo-1587836374828-4dbafa74d0c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            category: "Мужские",
+            features: [
+                "Автоматический механизм",
+                "Водонепроницаемость 100м",
+                "Сапфировое стекло",
+                "Нержавеющая сталь",
+                "Хронограф с тахиметром"
+            ]
+        },
+        {
+            id: 6,
+            title: "Breitling Navitimer",
+            brand: "Breitling",
+            price: 680000,
+            oldPrice: 0,
+            description: "Культовые авиационные часы с логарифмической линейкой. Для настоящих ценителей.",
+            image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            category: "Мужские",
+            features: [
+                "Автоматический механизм",
+                "Водонепроницаемость 30м",
+                "Сапфировое стекло",
+                "Позолоченные детали",
+                "Логарифмическая линейка"
+            ]
         }
+    ];
 
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            // Поиск
-            searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value.toLowerCase();
+    // Данные для разделов помощи (без изменений)
+    const helpSections = {
+        delivery: {
+            title: "Доставка и оплата",
+            content: `
+                <div class="help-section">
+                    <h3>Способы доставки</h3>
+                    <p>Мы предлагаем несколько удобных способов доставки:</p>
+                    <ul>
+                        <li><strong>Курьерская доставка</strong> - по Москве в течение 1-2 дней</li>
+                        <li><strong>Почта России</strong> - доставка по всей России за 5-14 дней</li>
+                        <li><strong>Самовывоз</strong> - от нас в Москве</li>
+                        <li><strong>Доставка Яндекс GO</strong> - в течение 24 часов по Москве</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>Способы оплаты</h3>
+                    <p>Вы можете оплатить заказ любым удобным способом:</p>
+                    <ul>
+                        <li><strong>Наличными</strong> - при замовывозе или курьерской доставке</li>
+                        <li><strong>По СПБ</strong> - Банк будет указан при оформлении заказа.</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>Стоимость доставки</h3>
+                    <p>Стоимость доставки зависит от выбранного способа и региона:</p>
+                    <ul>
+                        <li>Москва - от 300 руб.</li>
+                        <li>Московская область - от 500 руб.</li>
+                        <li>Другие регионы - рассчитывается индивидуально</li>
+                    </ul>
+                </div>
+            `
+        },
+        warranty: {
+            title: "Гарантия",
+            content: `
+                <div class="help-section">
+                    <h3>Гарантийные обязательства</h3>
+                    <p>Мы предоставляем гарантию на все наши товары:</p>
+                    <ul>
+                        <li><strong>Оригинальные часы</strong> - гарантия 2 года от производителя</li>
+                        <li><strong>Премиум реплики</strong> - гарантия 1 год от магазина</li>
+                        <li><strong>Умные часы</strong> - гарантия 1 год</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>Условия гарантии</h3>
+                    <p>Гарантия распространяется на:</p>
+                    <ul>
+                        <li>Заводские дефекты механизма</li>
+                        <li>Проблемы с водонепроницаемостью</li>
+                        <li>Дефекты материалов и отделки</li>
+                        <li>Неисправности электронных компонентов</li>
+                    </ul>
+                    <p>Гарантия не распространяется на:</p>
+                    <ul>
+                        <li>Механические повреждения от ударов</li>
+                        <li>Повреждения от неправильной эксплуатации</li>
+                        <li>Естественный износ ремешков и стекол</li>
+                        <li>Повреждения от контакта с химическими веществами</li>
+                    </ul>
+                </div>
+            `
+        },
+        return: {
+            title: "Возврат и обмен",
+            content: `
+                <div class="help-section">
+                    <h3>Условия возврата</h3>
+                    <p>Вы можете вернуть или обменять товар в течение 7 дней с момента покупки:</p>
+                    <ul>
+                        <li>Товар должен быть в оригинальной упаковке</li>
+                        <li>Все бирки и ярлыки должны быть сохранены</li>
+                        <li>Товар не должен иметь следов эксплуатации</li>
+                        <li>Должны быть сохранены все документы</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>Процесс возврата</h3>
+                    <p>Для возврата или обмена товара:</p>
+                    <ul>
+                        <li>Свяжитесь с нами по телефону или email или в телеграмм</li>
+                        <li>Объясните почему вощврощаите товар и предъявите фото или видео что товар без повреждений</li>
+                        <li>Отправьте товар нам курьерской службой</li>
+                        <li>После проверки мы вернем деньги в течение 3-5 дней</li>
+                    </ul>
+                </div>
+            `
+        },
+        faq: {
+            title: "Частые вопросы",
+            content: `
+                <div class="help-section">
+                    <h3>Общие вопросы</h3>
+                    <p><strong>Как ухаживать за часами?</strong><br>
+                    Избегайте контакта с химическими веществами, регулярно протирайте мягкой тканью.</p>
+                </div>
+            `
+        },
+        contacts: {
+            title: "Контакты",
+            content: `
+                <div class="help-section">
+                    <h3>Наши контакты</h3>
+                    <p><strong>Email:</strong> Tempo63@yandex.ru</p>
+                    <p><strong>Телефон:</strong> +7 (901) 523 14 75</p>
+                    <p><strong>Режим работы:</strong> Пн-Пн: 10:00-23:00</p>
+                </div>
+                <div class="help-section">
+                    <h3>Свяжитесь с нами</h3>
+                    <p>Мы всегда рады помочь вам с выбором часов или ответить на любые вопросы. Наши консультанты работают ежедневно и готовы предоставить вам полную информацию о товарах и услугах.</p>
+                    <p>Для быстрого ответа рекомендуем обращаться через Telegram или по электронной почте.</p>
+                </div>
+            `
+        }
+    };
+
+    // Элементы DOM
+    const productsGrid = document.getElementById('productsGrid');
+    const searchInput = document.querySelector('.search-input');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const brandFilters = document.querySelectorAll('.brand-filter');
+    const brandCards = document.querySelectorAll('.brand-card');
+    const categoryFilters = document.querySelectorAll('.category-filter');
+    const productModal = document.getElementById('productModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBrand = document.getElementById('modalBrand');
+    const modalImage = document.getElementById('modalImage');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalOldPrice = document.getElementById('modalOldPrice');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalFeatures = document.getElementById('modalFeatures');
+    const modalBuyBtn = document.getElementById('modalBuyBtn');
+    const closeModal = document.querySelector('.close-modal');
+
+    // Элементы модального окна помощи
+    const helpModal = document.getElementById('helpModal');
+    const helpModalTitle = document.getElementById('helpModalTitle');
+    const helpModalBody = document.getElementById('helpModalBody');
+    const closeHelpModal = document.querySelector('.close-help-modal');
+    const helpLinks = document.querySelectorAll('.help-link');
+
+    // Новые элементы для меню брендов
+    const menuToggle = document.getElementById('menuToggle');
+    const brandsDropdown = document.getElementById('brandsDropdown');
+
+    // Переменные состояния
+    let currentCategory = 'all';
+    let currentBrand = 'all';
+    let searchQuery = '';
+    let isMenuOpen = false; // Добавляем состояние меню
+
+    // Инициализация
+    function init() {
+        renderProducts(products);
+        setupEventListeners();
+    }
+
+    // Настройка обработчиков событий
+    function setupEventListeners() {
+        // Переключение меню брендов
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Предотвращаем всплытие
+            toggleBrandsMenu();
+        });
+
+        // Закрытие меню при клике вне его
+        document.addEventListener('click', (e) => {
+            if (!brandsDropdown.contains(e.target) && !menuToggle.contains(e.target) && isMenuOpen) {
+                closeBrandsMenu();
+            }
+        });
+
+        // Поиск
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase();
+            filterProducts();
+        });
+
+        // Фильтры по категориям
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.getAttribute('data-category');
                 filterProducts();
             });
+        });
 
-            // Фильтры по категориям
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentCategory = btn.getAttribute('data-category');
-                    filterProducts();
-                });
+        // Фильтры по брендам в меню
+        brandFilters.forEach(filter => {
+            filter.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentBrand = filter.getAttribute('data-brand');
+                filterProducts();
+                closeBrandsMenu(); // Закрываем меню при выборе бренда
             });
+        });
 
-            // Фильтры по брендам в меню
-            brandFilters.forEach(filter => {
-                filter.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    currentBrand = filter.getAttribute('data-brand');
-                    filterProducts();
-                });
+        // Фильтры по брендам в карточках
+        brandCards.forEach(card => {
+            card.addEventListener('click', () => {
+                currentBrand = card.getAttribute('data-brand');
+                filterProducts();
             });
+        });
 
-            // Фильтры по брендам в карточках
-            brandCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    currentBrand = card.getAttribute('data-brand');
-                    filterProducts();
-                });
-            });
-
-            // Фильтры по категориям в подвале
-            categoryFilters.forEach(filter => {
-                filter.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    currentCategory = filter.getAttribute('data-category');
-                    // Активируем соответствующую кнопку фильтра
-                    filterBtns.forEach(btn => {
-                        if (btn.getAttribute('data-category') === currentCategory) {
-                            btn.click();
-                        }
-                    });
-                });
-            });
-
-            // Закрытие модального окна товара
-            closeModal.addEventListener('click', () => {
-                productModal.style.display = 'none';
-            });
-
-            // Закрытие модального окна помощи
-            closeHelpModal.addEventListener('click', () => {
-                helpModal.style.display = 'none';
-            });
-
-            // Закрытие модальных окон при клике вне их
-            window.addEventListener('click', (e) => {
-                if (e.target === productModal) {
-                    productModal.style.display = 'none';
-                }
-                if (e.target === helpModal) {
-                    helpModal.style.display = 'none';
-                }
-            });
-
-            // Обработчики для ссылок помощи
-            helpLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const section = link.getAttribute('data-section');
-                    openHelpModal(section);
-                });
-            });
-        }
-
-        // Открытие модального окна помощи
-        function openHelpModal(section) {
-            if (helpSections[section]) {
-                helpModalTitle.textContent = helpSections[section].title;
-                helpModalBody.innerHTML = helpSections[section].content;
-                helpModal.style.display = 'block';
-            }
-        }
-
-        // Фильтрация товаров
-        function filterProducts() {
-            let filteredProducts = products;
-
-            // Фильтрация по категории
-            if (currentCategory !== 'all') {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.category === currentCategory
-                );
-            }
-
-            // Фильтрация по бренду
-            if (currentBrand !== 'all') {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.brand === currentBrand
-                );
-            }
-
-            // Фильтрация по поисковому запросу
-            if (searchQuery) {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.title.toLowerCase().includes(searchQuery) ||
-                    product.brand.toLowerCase().includes(searchQuery) ||
-                    product.description.toLowerCase().includes(searchQuery)
-                );
-            }
-
-            renderProducts(filteredProducts);
-        }
-
-        // Отрисовка товаров
-        function renderProducts(productsToRender) {
-            productsGrid.innerHTML = '';
-
-            if (productsToRender.length === 0) {
-                productsGrid.innerHTML = `
-                    <div class="no-results">
-                        <div class="no-results-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <p>Товары не найдены</p>
-                        <p>Попробуйте изменить параметры поиска или фильтры</p>
-                    </div>
-                `;
-                return;
-            }
-
-            productsToRender.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <div class="product-image-container">
-                        <img src="${product.image}" alt="${product.title}" class="product-image">
-                        ${product.oldPrice ? `<div class="product-badge">-${Math.round((1 - product.price / product.oldPrice) * 100)}%</div>` : ''}
-                    </div>
-                    <div class="product-info">
-                        <div class="product-brand">${product.brand}</div>
-                        <div class="product-title">${product.title}</div>
-                        <div class="product-price">
-                            ${product.price.toLocaleString()} ₽
-                            ${product.oldPrice ? `<span class="product-old-price">${product.oldPrice.toLocaleString()} ₽</span>` : ''}
-                        </div>
-                        <div class="product-description">${product.description}</div>
-                        <div class="product-actions">
-                            <button class="buy-btn" data-id="${product.id}">
-                                <i class="fas fa-shopping-cart"></i> Купить
-                            </button>
-                        </div>
-                    </div>
-                `;
-                productsGrid.appendChild(productCard);
-
-                // Обработчик клика по карточке товара
-                productCard.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('buy-btn')) {
-                        openProductModal(product);
+        // Фильтры по категориям в подвале
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentCategory = filter.getAttribute('data-category');
+                // Активируем соответствующую кнопку фильтра
+                filterBtns.forEach(btn => {
+                    if (btn.getAttribute('data-category') === currentCategory) {
+                        btn.click();
                     }
                 });
-
-                // Обработчик клика по кнопке "Купить"
-                const buyBtn = productCard.querySelector('.buy-btn');
-                buyBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openProductModal(product);
-                });
             });
-        }
+        });
 
-        // Открытие модального окна товара
-        function openProductModal(product) {
-            modalTitle.textContent = product.title;
-            modalBrand.textContent = product.brand;
-            modalImage.src = product.image;
-            modalImage.alt = product.title;
-            modalPrice.textContent = `${product.price.toLocaleString()} ₽`;
-            
-            if (product.oldPrice) {
-                modalOldPrice.textContent = `${product.oldPrice.toLocaleString()} ₽`;
-                modalOldPrice.style.display = 'block';
-            } else {
-                modalOldPrice.style.display = 'none';
+        // Закрытие модального окна товара
+        closeModal.addEventListener('click', () => {
+            productModal.style.display = 'none';
+        });
+
+        // Закрытие модального окна помощи
+        closeHelpModal.addEventListener('click', () => {
+            helpModal.style.display = 'none';
+        });
+
+        // Закрытие модальных окон при клике вне их
+        window.addEventListener('click', (e) => {
+            if (e.target === productModal) {
+                productModal.style.display = 'none';
             }
-            
-            modalDescription.textContent = product.description;
-            
-            // Очистка и заполнение особенностей
-            modalFeatures.innerHTML = '';
-            product.features.forEach(feature => {
-                const li = document.createElement('li');
-                li.textContent = feature;
-                modalFeatures.appendChild(li);
+            if (e.target === helpModal) {
+                helpModal.style.display = 'none';
+            }
+        });
+
+        // Обработчики для ссылок помощи
+        helpLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.getAttribute('data-section');
+                openHelpModal(section);
             });
-            
-            // Настройка кнопки для перехода в Telegram
-            const telegramUsername = "Tempo_63";
-            const message = `Здравствуйте! Я хочу купить часы: ${product.brand} ${product.title} за ${product.price.toLocaleString()} ₽`;
-            const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
-            modalBuyBtn.href = telegramUrl;
-            
-            productModal.style.display = 'block';
+        });
+    }
+
+    // Функции для работы с меню брендов
+    function toggleBrandsMenu() {
+        if (isMenuOpen) {
+            closeBrandsMenu();
+        } else {
+            openBrandsMenu();
+        }
+    }
+
+    function openBrandsMenu() {
+        brandsDropdown.classList.add('show');
+        isMenuOpen = true;
+    }
+
+    function closeBrandsMenu() {
+        brandsDropdown.classList.remove('show');
+        isMenuOpen = false;
+    }
+
+    // Открытие модального окна помощи
+    function openHelpModal(section) {
+        if (helpSections[section]) {
+            helpModalTitle.textContent = helpSections[section].title;
+            helpModalBody.innerHTML = helpSections[section].content;
+            helpModal.style.display = 'block';
+        }
+    }
+
+    // Фильтрация товаров
+    function filterProducts() {
+        let filteredProducts = products;
+
+        // Фильтрация по категории
+        if (currentCategory !== 'all') {
+            filteredProducts = filteredProducts.filter(product => 
+                product.category === currentCategory
+            );
         }
 
-        // Запуск приложения
-        init();
-    </script>
-</body>
-</html>
+        // Фильтрация по бренду
+        if (currentBrand !== 'all') {
+            filteredProducts = filteredProducts.filter(product => 
+                product.brand === currentBrand
+            );
+        }
+
+        // Фильтрация по поисковому запросу
+        if (searchQuery) {
+            filteredProducts = filteredProducts.filter(product => 
+                product.title.toLowerCase().includes(searchQuery) ||
+                product.brand.toLowerCase().includes(searchQuery) ||
+                product.description.toLowerCase().includes(searchQuery)
+            );
+        }
+
+        renderProducts(filteredProducts);
+    }
+
+    // Отрисовка товаров
+    function renderProducts(productsToRender) {
+        productsGrid.innerHTML = '';
+
+        if (productsToRender.length === 0) {
+            productsGrid.innerHTML = `
+                <div class="no-results">
+                    <div class="no-results-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <p>Товары не найдены</p>
+                    <p>Попробуйте изменить параметры поиска или фильтры</p>
+                </div>
+            `;
+            return;
+        }
+
+        productsToRender.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.title}" class="product-image">
+                    ${product.oldPrice ? `<div class="product-badge">-${Math.round((1 - product.price / product.oldPrice) * 100)}%</div>` : ''}
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">${product.brand}</div>
+                    <div class="product-title">${product.title}</div>
+                    <div class="product-price">
+                        ${product.price.toLocaleString()} ₽
+                        ${product.oldPrice ? `<span class="product-old-price">${product.oldPrice.toLocaleString()} ₽</span>` : ''}
+                    </div>
+                    <div class="product-description">${product.description}</div>
+                    <div class="product-actions">
+                        <button class="buy-btn" data-id="${product.id}">
+                            <i class="fas fa-shopping-cart"></i> Купить
+                        </button>
+                    </div>
+                </div>
+            `;
+            productsGrid.appendChild(productCard);
+
+            // Обработчик клика по карточке товара
+            productCard.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('buy-btn')) {
+                    openProductModal(product);
+                }
+            });
+
+            // Обработчик клика по кнопке "Купить"
+            const buyBtn = productCard.querySelector('.buy-btn');
+            buyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openProductModal(product);
+            });
+        });
+    }
+
+    // Открытие модального окна товара
+    function openProductModal(product) {
+        modalTitle.textContent = product.title;
+        modalBrand.textContent = product.brand;
+        modalImage.src = product.image;
+        modalImage.alt = product.title;
+        modalPrice.textContent = `${product.price.toLocaleString()} ₽`;
+        
+        if (product.oldPrice) {
+            modalOldPrice.textContent = `${product.oldPrice.toLocaleString()} ₽`;
+            modalOldPrice.style.display = 'block';
+        } else {
+            modalOldPrice.style.display = 'none';
+        }
+        
+        modalDescription.textContent = product.description;
+        
+        // Очистка и заполнение особенностей
+        modalFeatures.innerHTML = '';
+        product.features.forEach(feature => {
+            const li = document.createElement('li');
+            li.textContent = feature;
+            modalFeatures.appendChild(li);
+        });
+        
+        // Настройка кнопки для перехода в Telegram
+        const telegramUsername = "Tempo_63";
+        const message = `Здравствуйте! Я хочу купить часы: ${product.brand} ${product.title} за ${product.price.toLocaleString()} ₽`;
+        const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
+        modalBuyBtn.href = telegramUrl;
+        
+        productModal.style.display = 'block';
+    }
+
+    // Запуск приложения
+    init();
+</script>
