@@ -844,12 +844,12 @@
                 </button>
                 <div class="dropdown-content">
                     <a href="#" class="brand-filter" data-brand="all">Все бренды</a>
-                    <a href="#" class="brand-filter" data-brand="CASIO">CASIO</a>
-                    <a href="#" class="brand-filter" data-brand="Patek Philippe">Patek Philippe</a>
+                    <a href="#" class="brand-filter" data-brand="Rolex">Rolex</a>
+                    <a href="#" class="brand-filter" data-brand="Omega">Omega</a>
                     <a href="#" class="brand-filter" data-brand="Tag Heuer">Tag Heuer</a>
                     <a href="#" class="brand-filter" data-brand="Cartier">Cartier</a>
                     <a href="#" class="brand-filter" data-brand="Breitling">Breitling</a>
-                    <a href="#" class="brand-filter" data-brand="emty">emty</a>
+                    <a href="#" class="brand-filter" data-brand="Patek Philippe">Patek Philippe</a>
                     <a href="#" class="brand-filter" data-brand="Apple">Apple</a>
                 </div>
             </div>
@@ -979,17 +979,18 @@
         const products = [
             {
                 id: 1,
-                title: "CASIO G-SHOCK", // МОЖНО ИЗМЕНИТЬ НАЗВАНИЕ
-                brand: "CASIO", // МОЖНО ИЗМЕНИТЬ БРЕНД
-                price: 4999₽, // МОЖНО ИЗМЕНИТЬ ЦЕНУ
-                oldPrice: 7000₽, // МОЖНО ИЗМЕНИТЬ СТАРУЮ ЦЕНУ
-                description: "Легендарные дайверские часы с автоподзаводом. Водонепроницаемость до 300 метров.", // МОЖНО ИЗМЕНИТЬ ОПИСАНИЕ
+                title: "Rolex Submariner",
+                brand: "Rolex",
+                price: 450000,
+                oldPrice: 520000,
+                description: "Легендарные дайверские часы с автоподзаводом. Водонепроницаемость до 300 метров.",
                 image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Мужские", // МОЖНО ИЗМЕНИТЬ КАТЕГОРИЮ
-                features: [ // МОЖНО ДОБАВИТЬ/УДАЛИТЬ ОСОБЕННОСТИ
-                    "Премиум реплика",
+                // ЗАМЕНИТЕ ССЫЛКУ ВЫШЕ НА СВОЮ ФОТО С GITHUB
+                // Пример: "https://raw.githubusercontent.com/ваш-username/ваш-репозиторий/main/images/rolex.jpg"
+                category: "Мужские",
+                features: [
                     "Автоматический механизм",
-                    "Водонепроницаемость 3ATM",
+                    "Водонепроницаемость 300м",
                     "Сапфировое стекло",
                     "Нержавеющая сталь",
                     "Хронограф"
@@ -997,32 +998,33 @@
             },
             {
                 id: 2,
-                title: "Patek Philippe Geneve", // МОЖНО ИЗМЕНИТЬ НАЗВАНИЕ
-                brand: "Patek Philippe", // МОЖНО ИЗМЕНИТЬ БРЕНД
-                price: 4999₽, // МОЖНО ИЗМЕНИТЬ ЦЕНУ
-                oldPrice: 8999₽, // МОЖНО ИЗМЕНИТЬ СТАРУЮ ЦЕНУ
-                description: "Элегантные часы с хронографом и функцией даты. Классический дизайн и надежность.", // МОЖНО ИЗМЕНИТЬ ОПИСАНИЕ
-                image: "https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Мужские", // МОЖНО ИЗМЕНИТЬ КАТЕГОРИЮ
-                features: [ // МОЖНО ДОБАВИТЬ/УДАЛИТЬ ОСОБЕННОСТИ
-                    "Премиальная реплика",
+                title: "Omega Seamaster",
+                brand: "Omega",
+                price: 299000,
+                oldPrice: 349000,
+                description: "Элегантные часы с хронографом и функцией даты. Классический дизайн и надежность.",
+                image: "https://images.unsplash.com/photo-1547996160-81dfd58739c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                // ЗАМЕНИТЕ ССЫЛКУ ВЫШЕ НА СВОЮ ФОТО С GITHUB
+                category: "Мужские",
+                features: [
                     "Автоматический механизм",
-                    "Водонепроницаемость 3ATM",
-                    "Минеральное стекло",
+                    "Водонепроницаемость 150м",
+                    "Сапфировое стекло",
                     "Нержавеющая сталь",
                     "Хронограф"
                 ]
             },
             {
                 id: 3,
-                title: "Cartier Tank", // МОЖНО ИЗМЕНИТЬ НАЗВАНИЕ
-                brand: "Cartier", // МОЖНО ИЗМЕНИТЬ БРЕНД
-                price: 380000, // МОЖНО ИЗМЕНИТЬ ЦЕНУ
-                oldPrice: 410000, // МОЖНО ИЗМЕНИТЬ СТАРУЮ ЦЕНУ
-                description: "Утонченные женские часы прямоугольной формы. Изысканность и элегантность.", // МОЖНО ИЗМЕНИТЬ ОПИСАНИЕ
+                title: "Cartier Tank",
+                brand: "Cartier",
+                price: 380000,
+                oldPrice: 410000,
+                description: "Утонченные женские часы прямоугольной формы. Изысканность и элегантность.",
                 image: "https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Женские", // МОЖНО ИЗМЕНИТЬ КАТЕГОРИЮ
-                features: [ // МОЖНО ДОБАВИТЬ/УДАЛИТЬ ОСОБЕННОСТИ
+                // ЗАМЕНИТЕ ССЫЛКУ ВЫШЕ НА СВОЮ ФОТО С GITHUB
+                category: "Женские",
+                features: [
                     "Кварцевый механизм",
                     "Водонепроницаемость 30м",
                     "Сапфировое стекло",
@@ -1032,14 +1034,15 @@
             },
             {
                 id: 4,
-                title: "Apple Watch Series 8", // МОЖНО ИЗМЕНИТЬ НАЗВАНИЕ
-                brand: "Apple", // МОЖНО ИЗМЕНИТЬ БРЕНД
-                price: 45990, // МОЖНО ИЗМЕНИТЬ ЦЕНУ
-                oldPrice: 0, // МОЖНО ИЗМЕНИТЬ СТАРУЮ ЦЕНУ (0 - если скидки нет)
-                description: "Умные часы с расширенными функциями здоровья и фитнеса. Всегда на связи.", // МОЖНО ИЗМЕНИТЬ ОПИСАНИЕ
+                title: "Apple Watch Series 8",
+                brand: "Apple",
+                price: 45990,
+                oldPrice: 0,
+                description: "Умные часы с расширенными функциями здоровья и фитнеса. Всегда на связи.",
                 image: "https://images.unsplash.com/photo-1579586337278-3f43610214d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                category: "Умные часы", // МОЖНО ИЗМЕНИТЬ КАТЕГОРИЮ
-                features: [ // МОЖНО ДОБАВИТЬ/УДАЛИТЬ ОСОБЕННОСТИ
+                // ЗАМЕНИТЕ ССЫЛКУ ВЫШЕ НА СВОЮ ФОТО С GITHUB
+                category: "Умные часы",
+                features: [
                     "Сенсорный дисплей Retina",
                     "Мониторинг ЭКГ",
                     "До 18 часов работы",
@@ -1056,7 +1059,7 @@
                 price: 100000,
                 oldPrice: 120000,
                 description: "Описание новых часов",
-                image: "https://images.unsplash.com/photo-...",
+                image: "https://raw.githubusercontent.com/ваш-username/ваш-репозиторий/main/images/ваше-фото.jpg",
                 category: "Мужские", // или "Женские", "Умные часы"
                 features: [
                     "Особенность 1",
