@@ -1,3 +1,6 @@
+Отлично! Уберу корзину, личный кабинет и избранное. Вот обновленный код:
+
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -107,42 +110,6 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-light);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.2rem;
-            cursor: pointer;
-            position: relative;
-            transition: color 0.3s;
-        }
-
-        .icon-btn:hover {
-            color: var(--accent);
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: var(--accent);
-            color: var(--primary);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
         }
 
         /* Основной контейнер */
@@ -426,7 +393,7 @@
             padding: 0.8rem 1rem;
             border-radius: 8px;
             cursor: pointer;
-            flex-grow: 1;
+            width: 100%;
             font-weight: 600;
             transition: all 0.3s ease;
             display: flex;
@@ -438,21 +405,6 @@
         .buy-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(201, 169, 110, 0.3);
-        }
-
-        .wishlist-btn {
-            background-color: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            width: 40px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .wishlist-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
         }
 
         /* Модальное окно товара */
@@ -843,18 +795,7 @@
                 <input type="text" class="search-input" placeholder="Поиск часов...">
                 <i class="fas fa-search search-icon"></i>
             </div>
-            <div class="header-actions">
-                <button class="icon-btn">
-                    <i class="fas fa-user"></i>
-                </button>
-                <button class="icon-btn">
-                    <i class="fas fa-heart"></i>
-                </button>
-                <button class="icon-btn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">2</span>
-                </button>
-            </div>
+            <!-- Убраны кнопки корзины, личного кабинета и избранного -->
         </div>
     </header>
 
@@ -1116,4 +1057,81 @@
         const filterBtns = document.querySelectorAll('.filter-btn');
         const productModal = document.getElementById('productModal');
         const modalTitle = document.getElementById('modalTitle');
-        const modalBrand =
+        const modalBrand = document.getElementById('modalBrand');
+        const modalImage = document.getElementById('modalImage');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalOldPrice = document.getElementById('modalOldPrice');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalFeatures = document.getElementById('modalFeatures');
+        const modalBuyBtn = document.getElementById('modalBuyBtn');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Переменные состояния
+        let currentCategory = 'Все часы';
+        let searchQuery = '';
+
+        // Инициализация
+        function init() {
+            renderProducts(products);
+            setupEventListeners();
+        }
+
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            // Поиск
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                filterProducts();
+            });
+
+            // Фильтры
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.textContent;
+                    filterProducts();
+                });
+            });
+
+            // Закрытие модального окна
+            closeModal.addEventListener('click', () => {
+                productModal.style.display = 'none';
+            });
+
+            // Закрытие модального окна при клике вне его
+            window.addEventListener('click', (e) => {
+                if (e.target === productModal) {
+                    productModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Фильтрация товаров
+        function filterProducts() {
+            let filteredProducts = products;
+
+            // Фильтрация по категории
+            if (currentCategory !== 'Все часы') {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.category === currentCategory
+                );
+            }
+
+            // Фильтрация по поисковому запросу
+            if (searchQuery) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.title.toLowerCase().includes(searchQuery) ||
+                    product.brand.toLowerCase().includes(searchQuery) ||
+                    product.description.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            renderProducts(filteredProducts);
+        }
+
+        // Отрисовка товаров
+        function renderProducts(productsToRender) {
+            productsGrid.innerHTML = '';
+
+            if (productsToRender.length === 0) {
