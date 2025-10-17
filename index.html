@@ -109,6 +109,63 @@
             color: var(--text-light);
         }
 
+        .menu-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Выпадающее меню брендов */
+        .brands-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: var(--card-bg);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            z-index: 1000;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--accent);
+            color: var(--primary);
+        }
+
+        .brands-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
         /* Основной контейнер */
         .container {
             max-width: 1200px;
@@ -141,8 +198,9 @@
         }
 
         .banner-content {
-            max-width: 60%;
+            max-width: 100%;
             z-index: 1;
+            text-align: center;
         }
 
         .banner h1 {
@@ -156,32 +214,8 @@
             font-size: 1.1rem;
         }
 
-        .banner-btn {
-            background-color: var(--accent);
-            color: var(--primary);
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .banner-btn:hover {
-            background-color: #d4b87a;
-            transform: translateY(-2px);
-        }
-
         .banner-image {
-            width: 300px;
-            height: 200px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: var(--accent);
+            display: none; /* Скрываем изображение так как убрали кнопку */
         }
 
         /* Фильтры и категории */
@@ -190,6 +224,7 @@
             gap: 1rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .filter-group {
@@ -225,6 +260,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            justify-content: center;
         }
 
         .section-title i {
@@ -753,6 +789,7 @@
             border-radius: 50%;
             color: var(--text);
             transition: all 0.3s;
+            text-decoration: none;
         }
 
         .social-links a:hover {
@@ -870,7 +907,21 @@
                 <input type="text" class="search-input" placeholder="Поиск часов...">
                 <i class="fas fa-search search-icon"></i>
             </div>
-            <!-- Убраны кнопки корзины, личного кабинета и избранного -->
+            <div class="brands-dropdown">
+                <button class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" class="brand-filter" data-brand="all">Все бренды</a>
+                    <a href="#" class="brand-filter" data-brand="Rolex">Rolex</a>
+                    <a href="#" class="brand-filter" data-brand="Omega">Omega</a>
+                    <a href="#" class="brand-filter" data-brand="Tag Heuer">Tag Heuer</a>
+                    <a href="#" class="brand-filter" data-brand="Cartier">Cartier</a>
+                    <a href="#" class="brand-filter" data-brand="Breitling">Breitling</a>
+                    <a href="#" class="brand-filter" data-brand="Patek Philippe">Patek Philippe</a>
+                    <a href="#" class="brand-filter" data-brand="Apple">Apple</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -881,25 +932,17 @@
             <div class="banner-content">
                 <h1>Элитные часы для избранных</h1>
                 <p>Откройте для себя коллекцию премиальных часов от ведущих мировых брендов. Изысканность в каждой детали.</p>
-                <button class="banner-btn">Смотреть коллекцию</button>
-            </div>
-            <div class="banner-image">
-                <i class="fas fa-clock"></i>
+                <!-- Кнопка "Смотреть коллекцию" убрана -->
             </div>
         </section>
 
         <!-- Фильтры и категории -->
         <div class="filters">
             <div class="filter-group">
-                <button class="filter-btn active">Все часы</button>
-                <button class="filter-btn">Мужские</button>
-                <button class="filter-btn">Женские</button>
-                <button class="filter-btn">Умные часы</button>
-            </div>
-            <div class="filter-group">
-                <button class="filter-btn">Назначить цену₽</button>
-                <button class="filter-btn">наз₽</button>
-                <button class="filter-btn">наз</button>
+                <button class="filter-btn active" data-category="all">Все часы</button>
+                <button class="filter-btn" data-category="Мужские">Мужские</button>
+                <button class="filter-btn" data-category="Женские">Женские</button>
+                <button class="filter-btn" data-category="Умные часы">Умные часы</button>
             </div>
         </div>
 
@@ -907,27 +950,27 @@
         <section class="brands-section">
             <h2 class="section-title"><i class="fas fa-crown"></i> Наши бренды</h2>
             <div class="brands-grid">
-                <div class="brand-card">
+                <div class="brand-card" data-brand="Rolex">
                     <div class="brand-logo">R</div>
                     <div class="brand-name">Rolex</div>
                 </div>
-                <div class="brand-card">
+                <div class="brand-card" data-brand="Omega">
                     <div class="brand-logo">O</div>
                     <div class="brand-name">Omega</div>
                 </div>
-                <div class="brand-card">
+                <div class="brand-card" data-brand="Tag Heuer">
                     <div class="brand-logo">T</div>
                     <div class="brand-name">Tag Heuer</div>
                 </div>
-                <div class="brand-card">
+                <div class="brand-card" data-brand="Cartier">
                     <div class="brand-logo">C</div>
                     <div class="brand-name">Cartier</div>
                 </div>
-                <div class="brand-card">
+                <div class="brand-card" data-brand="Breitling">
                     <div class="brand-logo">B</div>
                     <div class="brand-name">Breitling</div>
                 </div>
-                <div class="brand-card">
+                <div class="brand-card" data-brand="Patek Philippe">
                     <div class="brand-logo">P</div>
                     <div class="brand-name">Patek Philippe</div>
                 </div>
@@ -950,18 +993,18 @@
                 <h3>TempoShop</h3>
                 <p>Магазин элитных часов. Мы предлагаем премиальную реплику и оригинальную продукцию с гарантией.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-vk"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="https://t.me/temposhopwatch" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://instagram.com/ваш_instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://vk.com/ваш_vk" target="_blank"><i class="fab fa-vk"></i></a>
+                    <a href="https://youtube.com/ваш_youtube" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div class="footer-column">
                 <h3>Категории</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Мужские часы</a></li>
-                    <li><a href="#">Женские часы</a></li>
-                    <li><a href="#">Умные часы</a></li>
+                    <li><a href="#" class="category-filter" data-category="Мужские">Мужские часы</a></li>
+                    <li><a href="#" class="category-filter" data-category="Женские">Женские часы</a></li>
+                    <li><a href="#" class="category-filter" data-category="Умные часы">Умные часы</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -1237,9 +1280,6 @@
                         <p><strong>Как ухаживать за часами?</strong><br>
                         Избегайте контакта с химическими веществами, регулярно протирайте мягкой тканью.</p>
                     </div>
-                    <div class="help-section">
-                        
-                    </div>
                 `
             },
             contacts: {
@@ -1264,6 +1304,9 @@
         const productsGrid = document.getElementById('productsGrid');
         const searchInput = document.querySelector('.search-input');
         const filterBtns = document.querySelectorAll('.filter-btn');
+        const brandFilters = document.querySelectorAll('.brand-filter');
+        const brandCards = document.querySelectorAll('.brand-card');
+        const categoryFilters = document.querySelectorAll('.category-filter');
         const productModal = document.getElementById('productModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalBrand = document.getElementById('modalBrand');
@@ -1283,7 +1326,8 @@
         const helpLinks = document.querySelectorAll('.help-link');
 
         // Переменные состояния
-        let currentCategory = 'Все часы';
+        let currentCategory = 'all';
+        let currentBrand = 'all';
         let searchQuery = '';
 
         // Инициализация
@@ -1300,13 +1344,44 @@
                 filterProducts();
             });
 
-            // Фильтры
+            // Фильтры по категориям
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     filterBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    currentCategory = btn.textContent;
+                    currentCategory = btn.getAttribute('data-category');
                     filterProducts();
+                });
+            });
+
+            // Фильтры по брендам в меню
+            brandFilters.forEach(filter => {
+                filter.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentBrand = filter.getAttribute('data-brand');
+                    filterProducts();
+                });
+            });
+
+            // Фильтры по брендам в карточках
+            brandCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    currentBrand = card.getAttribute('data-brand');
+                    filterProducts();
+                });
+            });
+
+            // Фильтры по категориям в подвале
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentCategory = filter.getAttribute('data-category');
+                    // Активируем соответствующую кнопку фильтра
+                    filterBtns.forEach(btn => {
+                        if (btn.getAttribute('data-category') === currentCategory) {
+                            btn.click();
+                        }
+                    });
                 });
             });
 
@@ -1354,9 +1429,16 @@
             let filteredProducts = products;
 
             // Фильтрация по категории
-            if (currentCategory !== 'Все часы') {
+            if (currentCategory !== 'all') {
                 filteredProducts = filteredProducts.filter(product => 
                     product.category === currentCategory
+                );
+            }
+
+            // Фильтрация по бренду
+            if (currentBrand !== 'all') {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.brand === currentBrand
                 );
             }
 
@@ -1383,7 +1465,7 @@
                             <i class="fas fa-search"></i>
                         </div>
                         <p>Товары не найдены</p>
-                        <p>Попробуйте изменить параметры поиска</p>
+                        <p>Попробуйте изменить параметры поиска или фильтры</p>
                     </div>
                 `;
                 return;
@@ -1456,7 +1538,7 @@
             });
             
             // Настройка кнопки для перехода в Telegram
-            const telegramUsername = "@Tempo_63"; // Замените на ваш Telegram username
+            const telegramUsername = "Tempo_63";
             const message = `Здравствуйте! Я хочу купить часы: ${product.brand} ${product.title} за ${product.price.toLocaleString()} ₽`;
             const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
             modalBuyBtn.href = telegramUrl;
