@@ -3,379 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tempo Rivendita - Каталог часов</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>HellRage-BeatStore - Магазин битов</title>
     <style>
-        :root {
-            --primary: #0f1419;
-            --secondary: #1a1f2e;
-            --accent: #c9a96e;
-            --text: #e0e0e0;
-            --text-light: #a0a0a0;
-            --card-bg: #1e2332;
-            --border: #2a3042;
-            --success: #2ecc71;
-        }
-
+        /* Общие стили */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
-
+        
         body {
-            background-color: var(--primary);
-            color: var(--text);
+            background-color: #000;
+            color: #fff;
             line-height: 1.6;
         }
-
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
         /* Шапка сайта */
         header {
-            background-color: var(--secondary);
-            padding: 1rem 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background-color: #000;
+            border-bottom: 2px solid #ff0000;
+            padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 100;
         }
-
+        
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
         }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
+        
         .logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-main {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            line-height: 1.2;
-            text-align: center;
-        }
-
-        .logo-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            text-align: center;
-            margin-top: 0.2rem;
-        }
-
-        .search-container {
-            flex-grow: 1;
-            max-width: 500px;
-            margin: 0 2rem;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 0.8rem 1.2rem;
-            border-radius: 30px;
-            border: 1px solid var(--border);
-            background-color: var(--primary);
-            color: var(--text);
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .search-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.2);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light);
-        }
-
-        .menu-btn {
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff0000;
+            text-transform: uppercase;
             cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 5px;
-            transition: all 0.3s;
         }
-
-        .menu-btn:hover {
-            color: var(--accent);
-            background-color: rgba(255, 255, 255, 0.1);
+        
+        nav ul {
+            display: flex;
+            list-style: none;
         }
-
-        /* Выпадающее меню брендов */
-        .brands-dropdown {
-            position: relative;
-            display: inline-block;
+        
+        nav ul li {
+            margin-left: 20px;
         }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: var(--card-bg);
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            z-index: 1000;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-        }
-
-        .dropdown-content a {
-            color: var(--text);
-            padding: 12px 16px;
+        
+        nav ul li a {
+            color: #fff;
             text-decoration: none;
-            display: block;
-            transition: all 0.3s;
-            border-bottom: 1px solid var(--border);
+            font-weight: bold;
+            transition: color 0.3s;
+            cursor: pointer;
         }
-
-        .dropdown-content a:last-child {
-            border-bottom: none;
+        
+        nav ul li a:hover {
+            color: #ff0000;
         }
-
-        .dropdown-content a:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-        }
-
-        .brands-dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Основной контейнер */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        /* Баннер */
-        .banner {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
-            border-radius: 12px;
-            padding: 3rem 2rem;
-            margin-bottom: 2rem;
+        
+        /* Главный баннер */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1200x600/?music,studio') no-repeat center center/cover;
+            height: 500px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .banner::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-            opacity: 0.1;
-        }
-
-        .banner-content {
-            max-width: 100%;
-            z-index: 1;
+            justify-content: center;
             text-align: center;
         }
-
-        .banner h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ff0000;
+            text-transform: uppercase;
         }
-
-        .banner p {
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+        
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
         }
-
-        /* Фильтры и категории */
-        .filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.7rem 1.2rem;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            color: var(--text);
+        
+        .btn {
+            display: inline-block;
+            background-color: #ff0000;
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
             cursor: pointer;
-            transition: all 0.3s;
+            border: none;
         }
-
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-            border-color: var(--accent);
+        
+        .btn:hover {
+            background-color: #cc0000;
         }
-
-        /* Сетка товаров */
-        .products-grid {
+        
+        /* Секция с битами */
+        .beats-section {
+            padding: 80px 0;
+            display: block;
+        }
+        
+        .about-section {
+            padding: 80px 0;
+            display: none;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #ff0000;
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+        
+        .beats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 30px;
         }
-
-        .product-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            border: 1px solid var(--border);
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-            border-color: var(--accent);
-        }
-
-        .product-image-container {
-            position: relative;
-            overflow: hidden;
-            height: 200px;
-            background-color: var(--secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .product-image {
-            max-width: 80%;
-            max-height: 80%;
-            object-fit: contain;
-            transition: transform 0.5s ease;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--accent);
-            color: var(--primary);
-            padding: 0.3rem 0.7rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .product-info {
-            padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-title {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .product-brand {
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-price {
-            color: var(--text);
-            font-weight: bold;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-old-price {
-            color: var(--text-light);
-            text-decoration: line-through;
-            font-size: 0.9rem;
-            margin-left: 0.5rem;
-        }
-
-        .product-description {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex-grow: 1;
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .buy-btn {
-            background: linear-gradient(135deg, var(--accent), #d4b87a);
-            color: var(--primary);
-            border: none;
-            padding: 0.8rem 1rem;
+        
+        .beat-card {
+            background-color: #111;
             border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+        
+        .beat-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff0000;
+        }
+        
+        .beat-image {
+            height: 200px;
+            background-color: #222;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            color: #ff0000;
+            font-size: 24px;
+            position: relative;
         }
-
-        .buy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(201, 169, 110, 0.3);
+        
+        .beat-info {
+            padding: 20px;
         }
-
-        /* Модальное окно товара */
+        
+        .beat-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .beat-producer {
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+        
+        .beat-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 15px;
+        }
+        
+        .beat-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .play-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .play-btn:hover {
+            background-color: #ff0000;
+        }
+        
+        .play-btn.playing {
+            background-color: #ff0000;
+        }
+        
+        .audio-player {
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -385,441 +236,134 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
             z-index: 1000;
-            overflow-y: auto;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: var(--card-bg);
-            margin: 2rem auto;
-            width: 90%;
-            max-width: 900px;
-            border-radius: 15px;
-            overflow: hidden;
-            animation: modalFade 0.4s;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-        }
-
-        @keyframes modalFade {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid var(--border);
-            background-color: var(--secondary);
-        }
-
-        .close-modal {
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--text-light);
-            transition: color 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            align-items: center;
         }
-
-        .close-modal:hover {
-            color: var(--accent);
-            background-color: rgba(255, 255, 255, 0.1);
+        
+        .modal-content {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #ff0000;
         }
-
-        .modal-body {
+        
+        .modal h2 {
+            color: #ff0000;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .modal p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        .contact-buttons {
             display: flex;
             flex-direction: column;
-            padding: 2rem;
+            gap: 15px;
         }
-
-        @media (min-width: 768px) {
-            .modal-body {
-                flex-direction: row;
-                gap: 2rem;
-            }
-        }
-
-        .modal-image-container {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            background-color: var(--secondary);
+        
+        .contact-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .modal-image-container {
-                margin-bottom: 0;
-            }
-        }
-
-        .modal-image {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        .modal-info {
-            flex: 1;
-        }
-
-        .modal-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        .modal-brand {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal-price-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-price {
-            font-size: 1.8rem;
-            color: var(--text);
-            font-weight: bold;
-        }
-
-        .modal-old-price {
-            color: var(--text-light);
-            text-decoration: line-through;
-            font-size: 1.2rem;
-        }
-
-        .modal-description {
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-            color: var(--text-light);
-        }
-
-        .modal-features {
-            margin-bottom: 2rem;
-        }
-
-        .modal-features h3 {
-            margin-bottom: 0.8rem;
-            color: var(--text);
-        }
-
-        .modal-features ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .modal-features li {
-            padding: 0.3rem 0;
-            position: relative;
-            padding-left: 1.5rem;
-            color: var(--text-light);
-        }
-
-        .modal-features li::before {
-            content: "✓";
-            color: var(--accent);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        .modal-buy-btn {
-            background: linear-gradient(135deg, var(--accent), #d4b87a);
-            color: var(--primary);
-            border: none;
-            padding: 1.2rem 2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
+            gap: 10px;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
             text-decoration: none;
-            box-shadow: 0 4px 10px rgba(201, 169, 110, 0.3);
+            transition: background-color 0.3s;
         }
-
-        .modal-buy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(201, 169, 110, 0.4);
+        
+        .contact-btn:hover {
+            background-color: #ff0000;
         }
-
-        /* Модальное окно помощи */
-        .help-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            overflow-y: auto;
-            backdrop-filter: blur(5px);
-        }
-
-        .help-modal-content {
-            background-color: var(--card-bg);
-            margin: 2rem auto;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 15px;
-            overflow: hidden;
-            animation: modalFade 0.4s;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-        }
-
-        .help-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid var(--border);
-            background-color: var(--secondary);
-        }
-
-        .help-modal-body {
-            padding: 2rem;
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .help-section {
-            margin-bottom: 2rem;
-        }
-
-        .help-section h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .help-section p {
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .help-section ul {
-            list-style-type: none;
-            padding-left: 1rem;
-        }
-
-        .help-section li {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .help-section li::before {
-            content: "•";
-            color: var(--accent);
+        
+        .close-btn {
             position: absolute;
-            left: 0;
-            font-weight: bold;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
         }
-
-        /* Сообщение о пустом результате */
-        .no-results {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-light);
-            font-size: 1.2rem;
-            grid-column: 1 / -1;
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .no-results-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-            color: var(--accent);
-        }
-
+        
         /* Подвал */
         footer {
-            background-color: var(--secondary);
-            padding: 3rem 0 1.5rem;
-            margin-top: 3rem;
+            background-color: #000;
+            border-top: 2px solid #ff0000;
+            padding: 40px 0;
+            text-align: center;
         }
-
+        
         .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        .footer-column h3 {
-            margin-bottom: 1.5rem;
-            color: var(--text);
-            font-size: 1.2rem;
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
-
+        
         .footer-links {
-            list-style: none;
+            display: flex;
+            margin-bottom: 20px;
         }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
+        
         .footer-links a {
-            color: var(--text-light);
+            color: #fff;
+            margin: 0 15px;
             text-decoration: none;
             transition: color 0.3s;
             cursor: pointer;
         }
-
+        
         .footer-links a:hover {
-            color: var(--accent);
+            color: #ff0000;
         }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            color: var(--text);
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
-
+        
         .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-light);
-            font-size: 0.9rem;
+            color: #777;
+            font-size: 14px;
         }
-
+        
         /* Адаптивность */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
             }
             
-            .search-container {
-                margin: 0;
-                width: 100%;
+            nav ul {
+                margin-top: 15px;
             }
             
-            .banner {
-                flex-direction: column;
-                text-align: center;
-                padding: 2rem 1rem;
+            .hero-content h1 {
+                font-size: 36px;
             }
             
-            .banner-content {
-                max-width: 100%;
-                margin-bottom: 1.5rem;
-            }
-            
-            .banner h1 {
-                font-size: 2rem;
-            }
-            
-            .products-grid {
+            .beats-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
-            .modal-content {
-                width: 95%;
-                margin: 1rem auto;
+            .contact-buttons {
+                flex-direction: column;
             }
             
-            .modal-body {
-                padding: 1.5rem;
-            }
-            
-            .modal-title {
-                font-size: 1.6rem;
-            }
-            
-            .modal-price {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .filters {
-                gap: 0.7rem;
-            }
-            
-            .filter-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .modal-header {
-                padding: 1rem 1.5rem;
-            }
-            
-            .modal-body {
-                padding: 1rem;
-            }
-            
-            .logo-main {
-                font-size: 1.4rem;
-            }
-            
-            .logo-subtitle {
-                font-size: 0.8rem;
+            .beat-actions {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
@@ -827,607 +371,236 @@
 <body>
     <!-- Шапка сайта -->
     <header>
-        <div class="header-content">
-            <div class="logo-container">
-                <div class="logo">
-                    <div class="logo-main">TempoRivendita</div>
-                    <div class="logo-subtitle">Каталог часов</div>
-                </div>
-            </div>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Поиск часов...">
-                <i class="fas fa-search search-icon"></i>
-            </div>
-            <div class="brands-dropdown">
-                <button class="menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#" class="brand-filter" data-brand="all">Все бренды</a>
-                    <a href="#" class="brand-filter" data-brand="CASIO">CASIO</a>
-                    <a href="#" class="brand-filter" data-brand="Patek Philippe">Patek Philippe</a>
-                    <a href="#" class="brand-filter" data-brand="Tag Heuer">Tag Heuer</a>
-                    <a href="#" class="brand-filter" data-brand="Cartier">Cartier</a>
-                    <a href="#" class="brand-filter" data-brand="Breitling">Breitling</a>
-                    <a href="#" class="brand-filter" data-brand="omega">omega</a>
-                    <a href="#" class="brand-filter" data-brand="Apple">Apple</a>
-                </div>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="showSection('home')">HellRage-BeatStore</div>
+                <nav>
+                    <ul>
+                        <li><a onclick="showSection('home')">Главная</a></li>
+                        <li><a onclick="showSection('beats')">Биты</a></li>
+                        <li><a onclick="showSection('about')">О нас</a></li>
+                        <li><a onclick="showModal()">Контакты</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
 
-    <!-- Основной контент -->
-    <div class="container">
-        <!-- Баннер -->
-        <section class="banner">
-            <div class="banner-content">
-                <h1>Каталог элитных часов</h1>
-                <p>Откройте для себя полную коллекцию премиальных часов от ведущих мировых брендов. Изысканность в каждой детали.</p>
-            </div>
-        </section>
-
-        <!-- Фильтры и категории -->
-        <div class="filters">
-            <div class="filter-group">
-                <button class="filter-btn active" data-category="all">Все часы</button>
-                <button class="filter-btn" data-category="Мужские">Мужские</button>
-                <button class="filter-btn" data-category="Женские">Женские</button>
-                <button class="filter-btn" data-category="Умные часы">Умные часы</button>
+    <!-- Главный баннер -->
+    <section class="hero" id="home-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Лучшие биты для вашего творчества</h1>
+                <p>Качественные продакшены по доступным ценам</p>
+                <a class="btn" onclick="showSection('beats')">Смотреть каталог</a>
             </div>
         </div>
+    </section>
 
-        <!-- Товары -->
-        <section class="products-section">
-            <h2 class="section-title"><i class="fas fa-clock"></i> Все модели часов</h2>
-            <div class="products-grid" id="productsGrid">
-                <!-- Товары будут добавлены через JavaScript -->
+    <!-- Секция с битами -->
+    <section class="beats-section" id="beats-section">
+        <div class="container">
+            <h2 class="section-title">Популярные биты</h2>
+            <div class="beats-grid">
+                <!-- Бит 1 -->
+                <div class="beat-card">
+                    <div class="beat-image">Тип бита: Trap</div>
+                    <div class="beat-info">
+                        <h3 class="beat-title">Dark Night</h3>
+                        <p class="beat-producer">Producer: HellRage</p>
+                        <p class="beat-price">$49.99</p>
+                        <div class="beat-actions">
+                            <button class="btn">Купить</button>
+                            <button class="play-btn" onclick="togglePlay('beat1')">▶</button>
+                        </div>
+                        <audio id="beat1" class="audio-player" controls>
+                            <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+                            Ваш браузер не поддерживает аудио элемент.
+                        </audio>
+                    </div>
+                </div>
+                
+                <!-- Бит 2 -->
+                <div class="beat-card">
+                    <div class="beat-image">Тип бита: Drill</div>
+                    <div class="beat-info">
+                        <h3 class="beat-title">Street King</h3>
+                        <p class="beat-producer">Producer: HellRage</p>
+                        <p class="beat-price">$59.99</p>
+                        <div class="beat-actions">
+                            <button class="btn">Купить</button>
+                            <button class="play-btn" onclick="togglePlay('beat2')">▶</button>
+                        </div>
+                        <audio id="beat2" class="audio-player" controls>
+                            <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+                            Ваш браузер не поддерживает аудио элемент.
+                        </audio>
+                    </div>
+                </div>
+                
+                <!-- Бит 3 -->
+                <div class="beat-card">
+                    <div class="beat-image">Тип бита: Hip-Hop</div>
+                    <div class="beat-info">
+                        <h3 class="beat-title">Old School Vibe</h3>
+                        <p class="beat-producer">Producer: HellRage</p>
+                        <p class="beat-price">$39.99</p>
+                        <div class="beat-actions">
+                            <button class="btn">Купить</button>
+                            <button class="play-btn" onclick="togglePlay('beat3')">▶</button>
+                        </div>
+                        <audio id="beat3" class="audio-player" controls>
+                            <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+                            Ваш браузер не поддерживает аудио элемент.
+                        </audio>
+                    </div>
+                </div>
+                
+                <!-- Бит 4 -->
+                <div class="beat-card">
+                    <div class="beat-image">Тип бита: R&B</div>
+                    <div class="beat-info">
+                        <h3 class="beat-title">Midnight Love</h3>
+                        <p class="beat-producer">Producer: HellRage</p>
+                        <p class="beat-price">$44.99</p>
+                        <div class="beat-actions">
+                            <button class="btn">Купить</button>
+                            <button class="play-btn" onclick="togglePlay('beat4')">▶</button>
+                        </div>
+                        <audio id="beat4" class="audio-player" controls>
+                            <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+                            Ваш браузер не поддерживает аудио элемент.
+                        </audio>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <!-- Секция "О нас" -->
+    <section class="about-section" id="about-section">
+        <div class="container">
+            <h2 class="section-title">О нас</h2>
+            <div class="about-content">
+                <p>HellRage-BeatStore - это ведущий магазин битов для современных артистов и продюсеров.</p>
+                <p>Мы создаем качественные продакшены в различных жанрах: Trap, Drill, Hip-Hop, R&B и других.</p>
+                <p>Наша команда состоит из профессиональных продюсеров с многолетним опытом работы в музыкальной индустрии.</p>
+                <p>Мы гордимся тем, что предоставляем нашим клиентам эксклюзивные права на биты и гарантируем высочайшее качество звука.</p>
+                <p>Присоединяйтесь к сообществу HellRage-BeatStore и найдите идеальный бит для вашего следующего хита!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно контактов -->
+    <div class="modal" id="contact-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2>Контакты</h2>
+            <p>Свяжитесь с нами через Telegram для заказа битов или сотрудничества</p>
+            <div class="contact-buttons">
+                <a href="https://t.me/hellrage_beats" class="contact-btn" target="_blank">
+                    <span>Написать в Telegram</span>
+                </a>
+                <a href="https://t.me/hellrage_channel" class="contact-btn" target="_blank">
+                    <span>Наш Telegram-канал</span>
+                </a>
+            </div>
+        </div>
     </div>
 
     <!-- Подвал -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>TempoShop</h3>
-                <p>Магазин элитных часов. Мы предлагаем премиальную реплику и оригинальную продукцию с гарантией.</p>
-                <div class="social-links">
-                    <a href="https://t.me/temposhopwatch" target="_blank"><i class="fab fa-telegram"></i></a>
-                    <a href="https://instagram.com/ваш_instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://tiktok.com/@temposhopwatch" target="_blank"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://youtube.com/ваш_youtube" target="_blank"><i class="fab fa-youtube"></i></a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">HellRage-BeatStore</div>
+                <div class="footer-links">
+                    <a onclick="showSection('home')">Главная</a>
+                    <a onclick="showSection('beats')">Биты</a>
+                    <a onclick="showSection('about')">О нас</a>
+                    <a onclick="showModal()">Контакты</a>
                 </div>
+                <p class="copyright">&copy; 2023 HellRage-BeatStore. Все права защищены.</p>
             </div>
-            <div class="footer-column">
-                <h3>Категории</h3>
-                <ul class="footer-links">
-                    <li><a href="#" class="category-filter" data-category="Мужские">Мужские часы</a></li>
-                    <li><a href="#" class="category-filter" data-category="Женские">Женские часы</a></li>
-                    <li><a href="#" class="category-filter" data-category="Умные часы">Умные часы</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Помощь</h3>
-                <ul class="footer-links">
-                    <li><a href="#" class="help-link" data-section="delivery">Доставка и оплата</a></li>
-                    <li><a href="#" class="help-link" data-section="warranty">Гарантия</a></li>
-                    <li><a href="#" class="help-link" data-section="return">Возврат и обмен</a></li>
-                    <li><a href="#" class="help-link" data-section="faq">Частые вопросы</a></li>
-                    <li><a href="#" class="help-link" data-section="contacts">Контакты</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Контакты</h3>
-                <ul class="footer-links">
-                    <li><i class="fas fa-envelope"></i> Tempo63@yandex.ru</li>
-                    <li><i class="fas fa-clock"></i> Пн-Пн: 10:00-23:00</li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2025 Надежно Качественно Безопасно. Все права защищены.
         </div>
     </footer>
 
-    <!-- Модальное окно товара -->
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Название товара</h2>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="modal-image-container">
-                    <img id="modalImage" src="" alt="Товар" class="modal-image">
-                </div>
-                <div class="modal-info">
-                    <div class="modal-brand" id="modalBrand">Бренд</div>
-                    <div class="modal-price-container">
-                        <div class="modal-price" id="modalPrice">0 руб.</div>
-                        <div class="modal-old-price" id="modalOldPrice">0 руб.</div>
-                    </div>
-                    <p class="modal-description" id="modalDescription">Описание товара</p>
-                    <div class="modal-features">
-                        <h3>Особенности</h3>
-                        <ul id="modalFeatures">
-                            <!-- Особенности будут добавлены через JS -->
-                        </ul>
-                    </div>
-                    <a href="#" class="modal-buy-btn" id="modalBuyBtn">
-                        <i class="fab fa-telegram"></i> Купить в Telegram
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно помощи -->
-    <div class="help-modal" id="helpModal">
-        <div class="help-modal-content">
-            <div class="help-modal-header">
-                <h2 id="helpModalTitle">Помощь</h2>
-                <span class="close-help-modal">&times;</span>
-            </div>
-            <div class="help-modal-body" id="helpModalBody">
-                <!-- Контент будет добавляться через JavaScript -->
-            </div>
-        </div>
-    </div>
-
     <script>
-        // ДАННЫЕ ТОВАРОВ - ЗДЕСЬ МОЖНО РЕДАКТИРОВАТЬ И ДОБАВЛЯТЬ ЧАСЫ
-        const products = [
-            {
-                id: 1,
-                title: "CASIO vintage",
-                brand: "CASIO",
-                price: 5000,
-                oldPrice: 8000,
-                description: "Легендарные винтажные часы Casio — эталон надёжности и лаконичного дизайна.",
-                image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                // ЗАМЕНИТЕ ССЫЛКУ ВЫШЕ НА СВОЮ ФОТО С GITHUB
-                // Пример: "https://raw.githubusercontent.com/ваш-username/ваш-репозиторий/main/images/rolex.jpg"
-                category: "Мужские",
-                features: [
-                    "Оригинал ✅",
-                    "Автоматический механизм",
-                    "Водонепроницаемость WR30",
-                    "Циферблат выполнен из пластика",
-                    "Нержавеющая сталь",
-                    "Хронограф"
-                ]
-            },
-            {
-                id: 2,
-                title: "Patek Philippe модель",
-                brand: "Patek Philippe",
-                price: 10000,
-                oldPrice: 20000,
-                description: "Элегантные часы с хронографом и функцией даты. Классический дизайн и надежность.",
-                image: "https://raw.githubusercontent.com/Tempo36/shop-katalog/main/images/",
-                // ЗАМЕНИТЕ ССЫЛКУ ВЫШЕ НА СВОЮ ФОТО С GITHUB
-                category: "Мужские",
-                features: [
-                    "Автоматический механизм",
-                    "Водонепроницаемость 150м",
-                    "Сапфировое стекло",
-                    "Нержавеющая сталь",
-                    "Хронограф"
-                ]
-            },
-            {
-                id: 3,
-                title: "Cartier Tank",
-                brand: "Cartier",
-                price: 380000,
-                oldPrice: 410000,
-                description: "Утонченные женские часы прямоугольной формы. Изысканность и элегантность.",
-                image: "https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                // ЗАМЕНИТЕ ССЫЛКУ ВЫШЕ НА СВОЮ ФОТО С GITHUB
-                category: "Женские",
-                features: [
-                    "Кварцевый механизм",
-                    "Водонепроницаемость 30м",
-                    "Сапфировое стекло",
-                    "Позолоченный корпус",
-                    "Ремешок из кожи аллигатора"
-                ]
-            },
-            {
-                id: 4,
-                title: "Apple Watch Series 8",
-                brand: "Apple",
-                price: 45990,
-                oldPrice: 0,
-                description: "Умные часы с расширенными функциями здоровья и фитнеса. Всегда на связи.",
-                image: "https://images.unsplash.com/photo-1579586337278-3f43610214d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                // ЗАМЕНИТЕ ССЫЛКУ ВЫШЕ НА СВОЮ ФОТО С GITHUB
-                category: "Умные часы",
-                features: [
-                    "Сенсорный дисплей Retina",
-                    "Мониторинг ЭКГ",
-                    "До 18 часов работы",
-                    "Водонепроницаемость 50м",
-                    "GPS и сотовые модели"
-                ]
-            },
-            // ДОБАВИТЬ НОВЫЕ ЧАСЫ - СКОПИРУЙТЕ И ВСТАВЬТЕ ЭТОТ БЛОК:
-            /*
-            {
-                id: 5, // УВЕЛИЧЬТЕ ID НА 1
-                title: "Название новых часов",
-                brand: "Бренд",
-                price: 100000,
-                oldPrice: 120000,
-                description: "Описание новых часов",
-                image: "https://raw.githubusercontent.com/ваш-username/ваш-репозиторий/main/images/ваше-фото.jpg",
-                category: "Мужские", // или "Женские", "Умные часы"
-                features: [
-                    "Особенность 1",
-                    "Особенность 2",
-                    "Особенность 3"
-                ]
-            },
-            */
-        ];
-
-        // Данные для разделов помощи
-        const helpSections = {
-            delivery: {
-                title: "Доставка и оплата",
-                content: `
-                    <div class="help-section">
-                        <h3>Способы доставки</h3>
-                        <p>Мы предлагаем несколько удобных способов доставки:</p>
-                        <ul>
-                            <li><strong>Курьерская доставка</strong> - по Москве в течение 1-2 дней</li>
-                            <li><strong>Почта России</strong> - доставка по всей России за 5-14 дней</li>
-                            <li><strong>Самовывоз</strong> - от нас в Москве</li>
-                            <li><strong>Доставка Яндекс GO</strong> - в течение 24 часов по Москве</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h3>Способы оплаты</h3>
-                        <p>Вы можете оплатить заказ любым удобным способом:</p>
-                        <ul>
-                            <li><strong>Наличными</strong> - при замовывозе или курьерской доставке</li>
-                            <li><strong>По СПБ</strong> - Банк будет указан при оформлении заказа.</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h3>Стоимость доставки</h3>
-                        <p>Стоимость доставки зависит от выбранного способа и региона:</p>
-                        <ul>
-                            <li>Москва - от 300 руб.</li>
-                            <li>Московская область - от 500 руб.</li>
-                            <li>Другие регионы - рассчитывается индивидуально</li>
-                        </ul>
-                    </div>
-                `
-            },
-            warranty: {
-                title: "Гарантия",
-                content: `
-                    <div class="help-section">
-                        <h3>Гарантийные обязательства</h3>
-                        <p>Мы предоставляем гарантию на все наши товары:</p>
-                        <ul>
-                            <li><strong>Оригинальные часы</strong> - гарантия 2 года от производителя</li>
-                            <li><strong>Премиум реплики</strong> - гарантия 1 год от магазина</li>
-                            <li><strong>Умные часы</strong> - гарантия 1 год</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h3>Условия гарантии</h3>
-                        <p>Гарантия распространяется на:</p>
-                        <ul>
-                            <li>Заводские дефекты механизма</li>
-                            <li>Проблемы с водонепроницаемостью</li>
-                            <li>Дефекты материалов и отделки</li>
-                            <li>Неисправности электронных компонентов</li>
-                        </ul>
-                        <p>Гарантия не распространяется на:</p>
-                        <ul>
-                            <li>Механические повреждения от ударов</li>
-                            <li>Повреждения от неправильной эксплуатации</li>
-                            <li>Естественный износ ремешков и стекол</li>
-                            <li>Повреждения от контакта с химическими веществами</li>
-                        </ul>
-                    </div>
-                `
-            },
-            return: {
-                title: "Возврат и обмен",
-                content: `
-                    <div class="help-section">
-                        <h3>Условия возврата</h3>
-                        <p>Вы можете вернуть или обменять товар в течение 7 дней с момента покупки:</p>
-                        <ul>
-                            <li>Товар должен быть в оригинальной упаковке</li>
-                            <li>Все бирки и ярлыки должны быть сохранены</li>
-                            <li>Товар не должен иметь следов эксплуатации</li>
-                            <li>Должны быть сохранены все документы</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h3>Процесс возврата</h3>
-                        <p>Для возврата или обмена товара:</p>
-                        <ul>
-                            <li>Свяжитесь с нами по телефону или email или в телеграмм</li>
-                            <li>Объясните почему вощврощаите товар и предъявите фото или видео что товар без повреждений</li>
-                            <li>Отправьте товар нам курьерской службой</li>
-                            <li>После проверки мы вернем деньги в течение 3-5 дней</li>
-                        </ul>
-                    </div>
-                `
-            },
-            faq: {
-                title: "Частые вопросы",
-                content: `
-                    <div class="help-section">
-                        <h3>Общие вопросы</h3>
-                        <p><strong>Как ухаживать за часами?</strong><br>
-                        Избегайте контакта с химическими веществами, регулярно протирайте мягкой тканью.</p>
-                    </div>
-                `
-            },
-            contacts: {
-                title: "Контакты",
-                content: `
-                    <div class="help-section">
-                        <h3>Наши контакты</h3>
-                        <p><strong>Email:</strong> Tempo63@yandex.ru</p>
-                        <p><strong>Телефон:</strong> +7 (901) 523 14 75</p>
-                        <p><strong>Режим работы:</strong> Пн-Пн: 10:00-23:00</p>
-                    </div>
-                    <div class="help-section">
-                        <h3>Свяжитесь с нами</h3>
-                        <p>Мы всегда рады помочь вам с выбором часов или ответить на любые вопросы. Наши консультанты работают ежедневно и готовы предоставить вам полную информацию о товарах и услугах.</p>
-                        <p>Для быстрого ответа рекомендуем обращаться через Telegram или по электронной почте.</p>
-                    </div>
-                `
-            }
-        };
-
-        // Элементы DOM
-        const productsGrid = document.getElementById('productsGrid');
-        const searchInput = document.querySelector('.search-input');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const brandFilters = document.querySelectorAll('.brand-filter');
-        const categoryFilters = document.querySelectorAll('.category-filter');
-        const productModal = document.getElementById('productModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBrand = document.getElementById('modalBrand');
-        const modalImage = document.getElementById('modalImage');
-        const modalPrice = document.getElementById('modalPrice');
-        const modalOldPrice = document.getElementById('modalOldPrice');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalFeatures = document.getElementById('modalFeatures');
-        const modalBuyBtn = document.getElementById('modalBuyBtn');
-        const closeModal = document.querySelector('.close-modal');
-
-        // Элементы модального окна помощи
-        const helpModal = document.getElementById('helpModal');
-        const helpModalTitle = document.getElementById('helpModalTitle');
-        const helpModalBody = document.getElementById('helpModalBody');
-        const closeHelpModal = document.querySelector('.close-help-modal');
-        const helpLinks = document.querySelectorAll('.help-link');
-
-        // Переменные состояния
-        let currentCategory = 'all';
-        let currentBrand = 'all';
-        let searchQuery = '';
-
-        // Инициализация
-        function init() {
-            renderProducts(products);
-            setupEventListeners();
-        }
-
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            // Поиск
-            searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value.toLowerCase();
-                filterProducts();
-            });
-
-            // Фильтры по категориям
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentCategory = btn.getAttribute('data-category');
-                    filterProducts();
-                });
-            });
-
-            // Фильтры по брендам в меню
-            brandFilters.forEach(filter => {
-                filter.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    currentBrand = filter.getAttribute('data-brand');
-                    filterProducts();
-                });
-            });
-
-            // Фильтры по категориям в подвале
-            categoryFilters.forEach(filter => {
-                filter.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    currentCategory = filter.getAttribute('data-category');
-                    // Активируем соответствующую кнопку фильтра
-                    filterBtns.forEach(btn => {
-                        if (btn.getAttribute('data-category') === currentCategory) {
-                            btn.click();
-                        }
-                    });
-                });
-            });
-
-            // Закрытие модального окна товара
-            closeModal.addEventListener('click', () => {
-                productModal.style.display = 'none';
-            });
-
-            // Закрытие модального окна помощи
-            closeHelpModal.addEventListener('click', () => {
-                helpModal.style.display = 'none';
-            });
-
-            // Закрытие модальных окон при клике вне их
-            window.addEventListener('click', (e) => {
-                if (e.target === productModal) {
-                    productModal.style.display = 'none';
-                }
-                if (e.target === helpModal) {
-                    helpModal.style.display = 'none';
-                }
-            });
-
-            // Обработчики для ссылок помощи
-            helpLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const section = link.getAttribute('data-section');
-                    openHelpModal(section);
-                });
-            });
-        }
-
-        // Открытие модального окна помощи
-        function openHelpModal(section) {
-            if (helpSections[section]) {
-                helpModalTitle.textContent = helpSections[section].title;
-                helpModalBody.innerHTML = helpSections[section].content;
-                helpModal.style.display = 'block';
-            }
-        }
-
-        // Фильтрация товаров
-        function filterProducts() {
-            let filteredProducts = products;
-
-            // Фильтрация по категории
-            if (currentCategory !== 'all') {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.category === currentCategory
-                );
-            }
-
-            // Фильтрация по бренду
-            if (currentBrand !== 'all') {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.brand === currentBrand
-                );
-            }
-
-            // Фильтрация по поисковому запросу
-            if (searchQuery) {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.title.toLowerCase().includes(searchQuery) ||
-                    product.brand.toLowerCase().includes(searchQuery) ||
-                    product.description.toLowerCase().includes(searchQuery)
-                );
-            }
-
-            renderProducts(filteredProducts);
-        }
-
-        // Отрисовка товаров
-        function renderProducts(productsToRender) {
-            productsGrid.innerHTML = '';
-
-            if (productsToRender.length === 0) {
-                productsGrid.innerHTML = `
-                    <div class="no-results">
-                        <div class="no-results-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <p>Товары не найдены</p>
-                        <p>Попробуйте изменить параметры поиска или фильтры</p>
-                    </div>
-                `;
-                return;
-            }
-
-            productsToRender.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <div class="product-image-container">
-                        <img src="${product.image}" alt="${product.title}" class="product-image">
-                        ${product.oldPrice ? `<div class="product-badge">-${Math.round((1 - product.price / product.oldPrice) * 100)}%</div>` : ''}
-                    </div>
-                    <div class="product-info">
-                        <div class="product-brand">${product.brand}</div>
-                        <div class="product-title">${product.title}</div>
-                        <div class="product-price">
-                            ${product.price.toLocaleString()} ₽
-                            ${product.oldPrice ? `<span class="product-old-price">${product.oldPrice.toLocaleString()} ₽</span>` : ''}
-                        </div>
-                        <div class="product-description">${product.description}</div>
-                        <div class="product-actions">
-                            <button class="buy-btn" data-id="${product.id}">
-                                <i class="fas fa-shopping-cart"></i> Купить
-                            </button>
-                        </div>
-                    </div>
-                `;
-                productsGrid.appendChild(productCard);
-
-                // Обработчик клика по карточке товара
-                productCard.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('buy-btn')) {
-                        openProductModal(product);
-                    }
-                });
-
-                // Обработчик клика по кнопке "Купить"
-                const buyBtn = productCard.querySelector('.buy-btn');
-                buyBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openProductModal(product);
-                });
-            });
-        }
-
-        // Открытие модального окна товара
-        function openProductModal(product) {
-            modalTitle.textContent = product.title;
-            modalBrand.textContent = product.brand;
-            modalImage.src = product.image;
-            modalImage.alt = product.title;
-            modalPrice.textContent = `${product.price.toLocaleString()} ₽`;
+        // Функция для показа/скрытия секций
+        function showSection(section) {
+            // Скрываем все секции
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('beats-section').style.display = 'none';
+            document.getElementById('about-section').style.display = 'none';
             
-            if (product.oldPrice) {
-                modalOldPrice.textContent = `${product.oldPrice.toLocaleString()} ₽`;
-                modalOldPrice.style.display = 'block';
+            // Показываем нужную секцию
+            if (section === 'home') {
+                document.getElementById('home-section').style.display = 'flex';
+            } else if (section === 'beats') {
+                document.getElementById('beats-section').style.display = 'block';
+            } else if (section === 'about') {
+                document.getElementById('about-section').style.display = 'block';
+            }
+            
+            // Прокручиваем к верху страницы
+            window.scrollTo(0, 0);
+        }
+        
+        // Функция для показа модального окна
+        function showModal() {
+            document.getElementById('contact-modal').style.display = 'flex';
+        }
+        
+        // Функция для закрытия модального окна
+        function closeModal() {
+            document.getElementById('contact-modal').style.display = 'none';
+        }
+        
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('contact-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Функция для воспроизведения/паузы бита
+        function togglePlay(audioId) {
+            const audio = document.getElementById(audioId);
+            const playBtn = audio.previousElementSibling.querySelector('.play-btn');
+            
+            // Останавливаем все другие аудио
+            document.querySelectorAll('audio').forEach(a => {
+                if (a.id !== audioId) {
+                    a.pause();
+                    a.previousElementSibling.querySelector('.play-btn').classList.remove('playing');
+                    a.previousElementSibling.querySelector('.play-btn').textContent = '▶';
+                }
+            });
+            
+            if (audio.paused) {
+                audio.play();
+                playBtn.classList.add('playing');
+                playBtn.textContent = '❚❚';
             } else {
-                modalOldPrice.style.display = 'none';
+                audio.pause();
+                playBtn.classList.remove('playing');
+                playBtn.textContent = '▶';
             }
-            
-            modalDescription.textContent = product.description;
-            
-            // Очистка и заполнение особенностей
-            modalFeatures.innerHTML = '';
-            product.features.forEach(feature => {
-                const li = document.createElement('li');
-                li.textContent = feature;
-                modalFeatures.appendChild(li);
-            });
-            
-            // Настройка кнопки для перехода в Telegram
-            const telegramUsername = "Tempo_63";
-            const message = `Здравствуйте! Я хочу купить часы: ${product.brand} ${product.title} за ${product.price.toLocaleString()} ₽`;
-            const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
-            modalBuyBtn.href = telegramUrl;
-            
-            productModal.style.display = 'block';
         }
-
-        // Запуск приложения
-        init();
+        
+        // Сброс кнопки воспроизведения, когда аудио заканчивается
+        document.querySelectorAll('audio').forEach(audio => {
+            audio.addEventListener('ended', function() {
+                const playBtn = this.previousElementSibling.querySelector('.play-btn');
+                playBtn.classList.remove('playing');
+                playBtn.textContent = '▶';
+            });
+        });
+        
+        // Показываем главную страницу при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('home');
+        });
     </script>
 </body>
 </html>
