@@ -3,603 +3,539 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HellRage-BeatStore - Магазин битов</title>
+    <title>Простой Мессенджер</title>
     <style>
-        /* Общие стили */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
         
         body {
-            background-color: #000;
-            color: #fff;
-            line-height: 1.6;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Шапка сайта */
-        header {
-            background-color: #000;
-            border-bottom: 2px solid #ff0000;
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ff0000;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 20px;
-        }
-        
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-        
-        nav ul li a:hover {
-            color: #ff0000;
-        }
-        
-        /* Главный баннер */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1200x600/?music,studio') no-repeat center center/cover;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        
-        .hero-content h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #ff0000;
-            text-transform: uppercase;
-        }
-        
-        .hero-content p {
-            font-size: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #ff0000;
-            color: #fff;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-        
-        .btn:hover {
-            background-color: #cc0000;
-        }
-        
-        /* Секция с битами */
-        .beats-section {
-            padding: 80px 0;
-            display: block;
-        }
-        
-        .about-section {
-            padding: 80px 0;
-            display: none;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            color: #ff0000;
-            font-size: 36px;
-            text-transform: uppercase;
-        }
-        
-        .beats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .beat-card {
-            background-color: #111;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            border: 1px solid #333;
-        }
-        
-        .beat-card:hover {
-            transform: translateY(-10px);
-            border-color: #ff0000;
-        }
-        
-        .beat-image {
-            height: 200px;
-            background-color: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ff0000;
-            font-size: 24px;
-            position: relative;
-        }
-        
-        .beat-info {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             padding: 20px;
         }
         
-        .beat-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #fff;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
         
-        .beat-producer {
-            color: #ff0000;
-            margin-bottom: 10px;
+        .header {
+            background: #4a5568;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
         
-        .beat-price {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff0000;
+        .content {
+            display: flex;
+            min-height: 600px;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: #f7fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px;
+        }
+        
+        .main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
             margin-bottom: 15px;
         }
         
-        .beat-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .play-btn {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .play-btn:hover {
-            background-color: #ff0000;
-        }
-        
-        .play-btn.playing {
-            background-color: #ff0000;
-        }
-        
-        .audio-player {
-            width: 100%;
-            margin-top: 10px;
-            display: none;
-        }
-        
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .about-content p {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background-color: #111;
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            border: 2px solid #ff0000;
-        }
-        
-        .modal h2 {
-            color: #ff0000;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .modal p {
-            margin-bottom: 30px;
-            font-size: 18px;
-        }
-        
-        .contact-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .contact-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background-color: #333;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-        
-        .contact-btn:hover {
-            background-color: #ff0000;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        
-        /* Подвал */
-        footer {
-            background-color: #000;
-            border-top: 2px solid #ff0000;
-            padding: 40px 0;
-            text-align: center;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .footer-logo {
-            font-size: 24px;
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4a5568;
             font-weight: bold;
-            color: #ff0000;
-            margin-bottom: 20px;
-            text-transform: uppercase;
         }
         
-        .footer-links {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-        
-        .footer-links a:hover {
-            color: #ff0000;
-        }
-        
-        .copyright {
-            color: #777;
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
             font-size: 14px;
         }
         
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-            }
-            
-            nav ul {
-                margin-top: 15px;
-            }
-            
-            .hero-content h1 {
-                font-size: 36px;
-            }
-            
-            .beats-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .contact-buttons {
-                flex-direction: column;
-            }
-            
-            .beat-actions {
-                flex-direction: column;
-                gap: 10px;
-            }
+        button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #3182ce;
+        }
+        
+        .search-results {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .user-item {
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .user-item:hover {
+            background: #edf2f7;
+        }
+        
+        .online {
+            color: #48bb78;
+            font-size: 12px;
+        }
+        
+        .offline {
+            color: #a0aec0;
+            font-size: 12px;
+        }
+        
+        .chat-header {
+            padding: 15px;
+            background: #4a5568;
+            color: white;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            border-bottom: none;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+        
+        .message-outgoing {
+            background: #4299e1;
+            color: white;
+            margin-left: auto;
+        }
+        
+        .message-incoming {
+            background: #edf2f7;
+            color: #4a5568;
+        }
+        
+        .message-input {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .message-input input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .tab {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 2px solid #4299e1;
+            color: #4299e1;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .users-list {
+            margin-top: 20px;
+        }
+        
+        .status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .status-online {
+            background: #48bb78;
+        }
+        
+        .status-offline {
+            background: #a0aec0;
         }
     </style>
 </head>
 <body>
-    <!-- Шапка сайта -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo" onclick="showSection('home')">HellRage-BeatStore</div>
-                <nav>
-                    <ul>
-                        <li><a onclick="showSection('home')">Главная</a></li>
-                        <li><a onclick="showSection('beats')">Биты</a></li>
-                        <li><a onclick="showSection('about')">О нас</a></li>
-                        <li><a onclick="showModal()">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Простой Мессенджер</h1>
         </div>
-    </header>
-
-    <!-- Главный баннер -->
-    <section class="hero" id="home-section">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Лучшие биты для вашего творчества</h1>
-                <p>Качественные продакшены по доступным ценам</p>
-                <a class="btn" onclick="showSection('beats')">Смотреть каталог</a>
+        
+        <div class="content">
+            <div class="sidebar">
+                <div class="tabs">
+                    <div class="tab active" onclick="showTab('register')">Регистрация</div>
+                    <div class="tab" onclick="showTab('search')">Поиск</div>
+                    <div class="tab" onclick="showTab('users')">Контакты</div>
+                </div>
+                
+                <div id="register" class="tab-content active">
+                    <div class="form-group">
+                        <label>Номер телефона:</label>
+                        <input type="tel" id="phone" placeholder="+79991234567">
+                    </div>
+                    <div class="form-group">
+                        <label>Ваше имя:</label>
+                        <input type="text" id="name" placeholder="Иван">
+                    </div>
+                    <button onclick="register()">Зарегистрироваться</button>
+                </div>
+                
+                <div id="search" class="tab-content">
+                    <div class="form-group">
+                        <label>Поиск по имени:</label>
+                        <input type="text" id="searchQuery" placeholder="Введите имя" oninput="searchUsers()">
+                    </div>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                
+                <div id="users" class="tab-content">
+                    <div class="users-list" id="usersList"></div>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Секция с битами -->
-    <section class="beats-section" id="beats-section">
-        <div class="container">
-            <h2 class="section-title">Популярные биты</h2>
-            <div class="beats-grid">
-                <!-- Бит 1 -->
-                <div class="beat-card">
-                    <div class="beat-image">Тип бита: Trap</div>
-                    <div class="beat-info">
-                        <h3 class="beat-title">Dark Night</h3>
-                        <p class="beat-producer">Producer: HellRage</p>
-                        <p class="beat-price">$49.99</p>
-                        <div class="beat-actions">
-                            <button class="btn">Купить</button>
-                            <button class="play-btn" onclick="togglePlay('beat1')">▶</button>
-                        </div>
-                        <audio id="beat1" class="audio-player" controls>
-                            <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
-                            Ваш браузер не поддерживает аудио элемент.
-                        </audio>
+            
+            <div class="main">
+                <div id="chatContainer" class="hidden">
+                    <div class="chat-header" id="chatHeader">
+                        Выберите собеседника
+                    </div>
+                    <div class="messages" id="messages"></div>
+                    <div class="message-input">
+                        <input type="text" id="messageInput" placeholder="Введите сообщение..." disabled>
+                        <button onclick="sendMessage()" disabled id="sendButton">Отправить</button>
                     </div>
                 </div>
                 
-                <!-- Бит 2 -->
-                <div class="beat-card">
-                    <div class="beat-image">Тип бита: Drill</div>
-                    <div class="beat-info">
-                        <h3 class="beat-title">Street King</h3>
-                        <p class="beat-producer">Producer: HellRage</p>
-                        <p class="beat-price">$59.99</p>
-                        <div class="beat-actions">
-                            <button class="btn">Купить</button>
-                            <button class="play-btn" onclick="togglePlay('beat2')">▶</button>
-                        </div>
-                        <audio id="beat2" class="audio-player" controls>
-                            <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
-                            Ваш браузер не поддерживает аудио элемент.
-                        </audio>
-                    </div>
+                <div id="welcome" style="text-align: center; padding: 50px;">
+                    <h2>Добро пожаловать в мессенджер!</h2>
+                    <p>Зарегистрируйтесь и начните общаться</p>
                 </div>
-                
-                <!-- Бит 3 -->
-                <div class="beat-card">
-                    <div class="beat-image">Тип бита: Hip-Hop</div>
-                    <div class="beat-info">
-                        <h3 class="beat-title">Old School Vibe</h3>
-                        <p class="beat-producer">Producer: HellRage</p>
-                        <p class="beat-price">$39.99</p>
-                        <div class="beat-actions">
-                            <button class="btn">Купить</button>
-                            <button class="play-btn" onclick="togglePlay('beat3')">▶</button>
-                        </div>
-                        <audio id="beat3" class="audio-player" controls>
-                            <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
-                            Ваш браузер не поддерживает аудио элемент.
-                        </audio>
-                    </div>
-                </div>
-                
-                <!-- Бит 4 -->
-                <div class="beat-card">
-                    <div class="beat-image">Тип бита: R&B</div>
-                    <div class="beat-info">
-                        <h3 class="beat-title">Midnight Love</h3>
-                        <p class="beat-producer">Producer: HellRage</p>
-                        <p class="beat-price">$44.99</p>
-                        <div class="beat-actions">
-                            <button class="btn">Купить</button>
-                            <button class="play-btn" onclick="togglePlay('beat4')">▶</button>
-                        </div>
-                        <audio id="beat4" class="audio-player" controls>
-                            <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
-                            Ваш браузер не поддерживает аудио элемент.
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Секция "О нас" -->
-    <section class="about-section" id="about-section">
-        <div class="container">
-            <h2 class="section-title">О нас</h2>
-            <div class="about-content">
-                <p>HellRage-BeatStore - это ведущий магазин битов для современных артистов и продюсеров.</p>
-                <p>Добавить опписание.</p>
-                <p>Добавить опписание.</p>
-                <p>Добавить опписание.</p>
-                <p>Присоединяйтесь к сообществу HellRage-BeatStore и найдите идеальный бит для вашего следующего хита!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Модальное окно контактов -->
-    <div class="modal" id="contact-modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            <h2>Контакты</h2>
-            <p>Свяжитесь с нами через Telegram для заказа битов или сотрудничества</p>
-            <div class="contact-buttons">
-                <a href="https://t.me/ThisRage" class="contact-btn" target="_blank">
-                    <span>Написать в Telegram</span>
-                </a>
-                <a href="https://t.me/ProductionHell" class="contact-btn" target="_blank">
-                    <span>Наш Telegram-канал</span>
-                </a>
             </div>
         </div>
     </div>
 
-    <!-- Подвал -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">HellRage-BeatStore</div>
-                <div class="footer-links">
-                    <a onclick="showSection('home')">Главная</a>
-                    <a onclick="showSection('beats')">Биты</a>
-                    <a onclick="showSection('about')">О нас</a>
-                    <a onclick="showModal()">Контакты</a>
-                </div>
-                <p class="copyright">&copy; ⓒ 2025 HellRage-BeatStore. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script>
-        // Функция для показа/скрытия секций
-        function showSection(section) {
-            // Скрываем все секции
-            document.getElementById('home-section').style.display = 'none';
-            document.getElementById('beats-section').style.display = 'none';
-            document.getElementById('about-section').style.display = 'none';
+        let currentUser = null;
+        let currentChatUser = null;
+        let stompClient = null;
+        
+        // Показать/скрыть вкладки
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
             
-            // Показываем нужную секцию
-            if (section === 'home') {
-                document.getElementById('home-section').style.display = 'flex';
-            } else if (section === 'beats') {
-                document.getElementById('beats-section').style.display = 'block';
-            } else if (section === 'about') {
-                document.getElementById('about-section').style.display = 'block';
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        // Регистрация пользователя
+        async function register() {
+            const phone = document.getElementById('phone').value;
+            const name = document.getElementById('name').value;
+            
+            if (!phone || !name) {
+                alert('Заполните все поля');
+                return;
             }
             
-            // Прокручиваем к верху страницы
-            window.scrollTo(0, 0);
-        }
-        
-        // Функция для показа модального окна
-        function showModal() {
-            document.getElementById('contact-modal').style.display = 'flex';
-        }
-        
-        // Функция для закрытия модального окна
-        function closeModal() {
-            document.getElementById('contact-modal').style.display = 'none';
-        }
-        
-        // Закрытие модального окна при клике вне его
-        window.onclick = function(event) {
-            const modal = document.getElementById('contact-modal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-        
-        // Функция для воспроизведения/паузы бита
-        function togglePlay(audioId) {
-            const audio = document.getElementById(audioId);
-            const playBtn = audio.previousElementSibling.querySelector('.play-btn');
-            
-            // Останавливаем все другие аудио
-            document.querySelectorAll('audio').forEach(a => {
-                if (a.id !== audioId) {
-                    a.pause();
-                    a.previousElementSibling.querySelector('.play-btn').classList.remove('playing');
-                    a.previousElementSibling.querySelector('.play-btn').textContent = '▶';
+            try {
+                const response = await fetch('http://localhost:8080/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ phone, name })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentUser = data.user;
+                    alert('Регистрация успешна!');
+                    connectWebSocket();
+                    loadUsers();
+                    showChat();
+                    setOnlineStatus(true);
+                } else {
+                    alert('Ошибка: ' + data.message);
                 }
-            });
-            
-            if (audio.paused) {
-                audio.play();
-                playBtn.classList.add('playing');
-                playBtn.textContent = '❚❚';
-            } else {
-                audio.pause();
-                playBtn.classList.remove('playing');
-                playBtn.textContent = '▶';
+            } catch (error) {
+                console.error('Ошибка регистрации:', error);
+                alert('Ошибка соединения с сервером');
             }
         }
         
-        // Сброс кнопки воспроизведения, когда аудио заканчивается
-        document.querySelectorAll('audio').forEach(audio => {
-            audio.addEventListener('ended', function() {
-                const playBtn = this.previousElementSibling.querySelector('.play-btn');
-                playBtn.classList.remove('playing');
-                playBtn.textContent = '▶';
+        // Поиск пользователей
+        async function searchUsers() {
+            const query = document.getElementById('searchQuery').value;
+            
+            if (query.length < 2) {
+                document.getElementById('searchResults').innerHTML = '';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`http://localhost:8080/api/search?query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayUsers(data.users, 'searchResults');
+                }
+            } catch (error) {
+                console.error('Ошибка поиска:', error);
+            }
+        }
+        
+        // Загрузка всех пользователей
+        async function loadUsers() {
+            try {
+                const response = await fetch('http://localhost:8080/api/users');
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayUsers(data.users, 'usersList');
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки пользователей:', error);
+            }
+        }
+        
+        // Отображение списка пользователей
+        function displayUsers(users, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            users.forEach(user => {
+                if (currentUser && user.phone === currentUser.phone) return;
+                
+                const userDiv = document.createElement('div');
+                userDiv.className = 'user-item';
+                userDiv.innerHTML = `
+                    <strong>${user.name}</strong>
+                    <br>
+                    <span class="${user.online ? 'online' : 'offline'}">
+                        <span class="status ${user.online ? 'status-online' : 'status-offline'}"></span>
+                        ${user.online ? 'Онлайн' : 'Оффлайн'}
+                    </span>
+                `;
+                
+                userDiv.onclick = () => startChat(user);
+                container.appendChild(userDiv);
             });
+        }
+        
+        // Начать чат с пользователем
+        async function startChat(user) {
+            currentChatUser = user;
+            document.getElementById('chatHeader').innerHTML = `
+                Чат с <strong>${user.name}</strong>
+                <span class="${user.online ? 'online' : 'offline'}">
+                    <span class="status ${user.online ? 'status-online' : 'status-offline'}"></span>
+                    ${user.online ? 'Онлайн' : 'Оффлайн'}
+                </span>
+            `;
+            
+            document.getElementById('messageInput').disabled = false;
+            document.getElementById('sendButton').disabled = false;
+            
+            await loadMessages(user);
+        }
+        
+        // Загрузка истории сообщений
+        async function loadMessages(user) {
+            try {
+                const response = await fetch(
+                    `http://localhost:8080/api/messages?user1=${currentUser.phone}&user2=${user.phone}`
+                );
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayMessages(data.messages);
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки сообщений:', error);
+            }
+        }
+        
+        // Отображение сообщений
+        function displayMessages(messages) {
+            const container = document.getElementById('messages');
+            container.innerHTML = '';
+            
+            messages.forEach(msg => {
+                const isOutgoing = msg.fromPhone === currentUser.phone;
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isOutgoing ? 'message-outgoing' : 'message-incoming'}`;
+                
+                const time = new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                messageDiv.innerHTML = `
+                    <div>${msg.text}</div>
+                    <small style="opacity: 0.7; font-size: 11px;">${time}</small>
+                `;
+                
+                container.appendChild(messageDiv);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        // Отправка сообщения
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text || !currentChatUser) return;
+            
+            const message = {
+                fromPhone: currentUser.phone,
+                toPhone: currentChatUser.phone,
+                text: text
+            };
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(message)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    input.value = '';
+                    await loadMessages(currentChatUser);
+                }
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+            }
+        }
+        
+        // Подключение к WebSocket
+        function connectWebSocket() {
+            const socket = new SockJS('http://localhost:8080/ws');
+            stompClient = Stomp.over(socket);
+            
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                
+                stompClient.subscribe('/topic/messages', function(message) {
+                    const msg = JSON.parse(message.body);
+                    if (currentChatUser && 
+                        (msg.fromPhone === currentChatUser.phone || 
+                         msg.toPhone === currentChatUser.phone)) {
+                        loadMessages(currentChatUser);
+                    }
+                });
+            });
+        }
+        
+        // Установка статуса онлайн/оффлайн
+        async function setOnlineStatus(online) {
+            if (!currentUser) return;
+            
+            try {
+                await fetch('http://localhost:8080/api/online', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        phone: currentUser.phone,
+                        online: online
+                    })
+                });
+            } catch (error) {
+                console.error('Ошибка установки статуса:', error);
+            }
+        }
+        
+        // Показать чат
+        function showChat() {
+            document.getElementById('chatContainer').classList.remove('hidden');
+            document.getElementById('welcome').classList.add('hidden');
+        }
+        
+        // Обновление статуса пользователей каждые 10 секунд
+        setInterval(() => {
+            if (currentUser) {
+                loadUsers();
+                if (document.getElementById('searchQuery').value) {
+                    searchUsers();
+                }
+            }
+        }, 10000);
+        
+        // Обработка нажатия Enter для отправки сообщения
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
         });
         
-        // Показываем главную страницу при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            showSection('home');
+        // Установка статуса оффлайн при закрытии страницы
+        window.addEventListener('beforeunload', function() {
+            if (currentUser) {
+                setOnlineStatus(false);
+            }
         });
     </script>
 </body>
