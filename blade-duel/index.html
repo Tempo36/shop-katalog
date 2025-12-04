@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Простой Мессенджер</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #4a5568;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .content {
+            display: flex;
+            min-height: 600px;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: #f7fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px;
+        }
+        
+        .main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4a5568;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #3182ce;
+        }
+        
+        .search-results {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .user-item {
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .user-item:hover {
+            background: #edf2f7;
+        }
+        
+        .online {
+            color: #48bb78;
+            font-size: 12px;
+        }
+        
+        .offline {
+            color: #a0aec0;
+            font-size: 12px;
+        }
+        
+        .chat-header {
+            padding: 15px;
+            background: #4a5568;
+            color: white;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            border-bottom: none;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+        
+        .message-outgoing {
+            background: #4299e1;
+            color: white;
+            margin-left: auto;
+        }
+        
+        .message-incoming {
+            background: #edf2f7;
+            color: #4a5568;
+        }
+        
+        .message-input {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .message-input input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .tab {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 2px solid #4299e1;
+            color: #4299e1;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .users-list {
+            margin-top: 20px;
+        }
+        
+        .status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .status-online {
+            background: #48bb78;
+        }
+        
+        .status-offline {
+            background: #a0aec0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Простой Мессенджер</h1>
+        </div>
+        
+        <div class="content">
+            <div class="sidebar">
+                <div class="tabs">
+                    <div class="tab active" onclick="showTab('register')">Регистрация</div>
+                    <div class="tab" onclick="showTab('search')">Поиск</div>
+                    <div class="tab" onclick="showTab('users')">Контакты</div>
+                </div>
+                
+                <div id="register" class="tab-content active">
+                    <div class="form-group">
+                        <label>Номер телефона:</label>
+                        <input type="tel" id="phone" placeholder="+79991234567">
+                    </div>
+                    <div class="form-group">
+                        <label>Ваше имя:</label>
+                        <input type="text" id="name" placeholder="Иван">
+                    </div>
+                    <button onclick="register()">Зарегистрироваться</button>
+                </div>
+                
+                <div id="search" class="tab-content">
+                    <div class="form-group">
+                        <label>Поиск по имени:</label>
+                        <input type="text" id="searchQuery" placeholder="Введите имя" oninput="searchUsers()">
+                    </div>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                
+                <div id="users" class="tab-content">
+                    <div class="users-list" id="usersList"></div>
+                </div>
+            </div>
+            
+            <div class="main">
+                <div id="chatContainer" class="hidden">
+                    <div class="chat-header" id="chatHeader">
+                        Выберите собеседника
+                    </div>
+                    <div class="messages" id="messages"></div>
+                    <div class="message-input">
+                        <input type="text" id="messageInput" placeholder="Введите сообщение..." disabled>
+                        <button onclick="sendMessage()" disabled id="sendButton">Отправить</button>
+                    </div>
+                </div>
+                
+                <div id="welcome" style="text-align: center; padding: 50px;">
+                    <h2>Добро пожаловать в мессенджер!</h2>
+                    <p>Зарегистрируйтесь и начните общаться</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+        let currentUser = null;
+        let currentChatUser = null;
+        let stompClient = null;
+        
+        // Показать/скрыть вкладки
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        // Регистрация пользователя
+        async function register() {
+            const phone = document.getElementById('phone').value;
+            const name = document.getElementById('name').value;
+            
+            if (!phone || !name) {
+                alert('Заполните все поля');
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ phone, name })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentUser = data.user;
+                    alert('Регистрация успешна!');
+                    connectWebSocket();
+                    loadUsers();
+                    showChat();
+                    setOnlineStatus(true);
+                } else {
+                    alert('Ошибка: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Ошибка регистрации:', error);
+                alert('Ошибка соединения с сервером');
+            }
+        }
+        
+        // Поиск пользователей
+        async function searchUsers() {
+            const query = document.getElementById('searchQuery').value;
+            
+            if (query.length < 2) {
+                document.getElementById('searchResults').innerHTML = '';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`http://localhost:8080/api/search?query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayUsers(data.users, 'searchResults');
+                }
+            } catch (error) {
+                console.error('Ошибка поиска:', error);
+            }
+        }
+        
+        // Загрузка всех пользователей
+        async function loadUsers() {
+            try {
+                const response = await fetch('http://localhost:8080/api/users');
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayUsers(data.users, 'usersList');
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки пользователей:', error);
+            }
+        }
+        
+        // Отображение списка пользователей
+        function displayUsers(users, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            users.forEach(user => {
+                if (currentUser && user.phone === currentUser.phone) return;
+                
+                const userDiv = document.createElement('div');
+                userDiv.className = 'user-item';
+                userDiv.innerHTML = `
+                    <strong>${user.name}</strong>
+                    <br>
+                    <span class="${user.online ? 'online' : 'offline'}">
+                        <span class="status ${user.online ? 'status-online' : 'status-offline'}"></span>
+                        ${user.online ? 'Онлайн' : 'Оффлайн'}
+                    </span>
+                `;
+                
+                userDiv.onclick = () => startChat(user);
+                container.appendChild(userDiv);
+            });
+        }
+        
+        // Начать чат с пользователем
+        async function startChat(user) {
+            currentChatUser = user;
+            document.getElementById('chatHeader').innerHTML = `
+                Чат с <strong>${user.name}</strong>
+                <span class="${user.online ? 'online' : 'offline'}">
+                    <span class="status ${user.online ? 'status-online' : 'status-offline'}"></span>
+                    ${user.online ? 'Онлайн' : 'Оффлайн'}
+                </span>
+            `;
+            
+            document.getElementById('messageInput').disabled = false;
+            document.getElementById('sendButton').disabled = false;
+            
+            await loadMessages(user);
+        }
+        
+        // Загрузка истории сообщений
+        async function loadMessages(user) {
+            try {
+                const response = await fetch(
+                    `http://localhost:8080/api/messages?user1=${currentUser.phone}&user2=${user.phone}`
+                );
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayMessages(data.messages);
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки сообщений:', error);
+            }
+        }
+        
+        // Отображение сообщений
+        function displayMessages(messages) {
+            const container = document.getElementById('messages');
+            container.innerHTML = '';
+            
+            messages.forEach(msg => {
+                const isOutgoing = msg.fromPhone === currentUser.phone;
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isOutgoing ? 'message-outgoing' : 'message-incoming'}`;
+                
+                const time = new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                messageDiv.innerHTML = `
+                    <div>${msg.text}</div>
+                    <small style="opacity: 0.7; font-size: 11px;">${time}</small>
+                `;
+                
+                container.appendChild(messageDiv);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        // Отправка сообщения
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text || !currentChatUser) return;
+            
+            const message = {
+                fromPhone: currentUser.phone,
+                toPhone: currentChatUser.phone,
+                text: text
+            };
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(message)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    input.value = '';
+                    await loadMessages(currentChatUser);
+                }
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+            }
+        }
+        
+        // Подключение к WebSocket
+        function connectWebSocket() {
+            const socket = new SockJS('http://localhost:8080/ws');
+            stompClient = Stomp.over(socket);
+            
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                
+                stompClient.subscribe('/topic/messages', function(message) {
+                    const msg = JSON.parse(message.body);
+                    if (currentChatUser && 
+                        (msg.fromPhone === currentChatUser.phone || 
+                         msg.toPhone === currentChatUser.phone)) {
+                        loadMessages(currentChatUser);
+                    }
+                });
+            });
+        }
+        
+        // Установка статуса онлайн/оффлайн
+        async function setOnlineStatus(online) {
+            if (!currentUser) return;
+            
+            try {
+                await fetch('http://localhost:8080/api/online', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        phone: currentUser.phone,
+                        online: online
+                    })
+                });
+            } catch (error) {
+                console.error('Ошибка установки статуса:', error);
+            }
+        }
+        
+        // Показать чат
+        function showChat() {
+            document.getElementById('chatContainer').classList.remove('hidden');
+            document.getElementById('welcome').classList.add('hidden');
+        }
+        
+        // Обновление статуса пользователей каждые 10 секунд
+        setInterval(() => {
+            if (currentUser) {
+                loadUsers();
+                if (document.getElementById('searchQuery').value) {
+                    searchUsers();
+                }
+            }
+        }, 10000);
+        
+        // Обработка нажатия Enter для отправки сообщения
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Установка статуса оффлайн при закрытии страницы
+        window.addEventListener('beforeunload', function() {
+            if (currentUser) {
+                setOnlineStatus(false);
+            }
+        });
+    </script>
+</body>
+</html>
